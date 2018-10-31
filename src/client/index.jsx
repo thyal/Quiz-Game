@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import {Home} from "./home";
+import {NotFound} from "./notFound";
 
 class App extends React.Component {
     constructor(props) {
@@ -12,11 +13,14 @@ class App extends React.Component {
     render() {
         return(
             <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home}/>
-            </Switch>
+                <div>
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route component={NotFound}/>
+                    </Switch>
+                </div>
             </BrowserRouter>
-        )
+        );
     }
 }
 

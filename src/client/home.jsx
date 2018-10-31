@@ -10,7 +10,7 @@ export class Home extends React.Component {
             <div>
                 <p>Heeeei</p>
             </div>
-        )
+        );
     }
 }
 
