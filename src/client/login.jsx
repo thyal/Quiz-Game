@@ -12,6 +12,7 @@ export class Login extends React.Component {
 
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onUsernameChange(event) {
