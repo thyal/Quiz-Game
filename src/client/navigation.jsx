@@ -9,7 +9,9 @@ export class Navigation extends React.Component {
     render() {
         return(
             <div className="navigationBar">
-                <NavLink to={"/"}>Home</NavLink>
+                <ul>
+                    <li><NavLink to={"/"}>Home</NavLink></li>
+                </ul>          
             </div>
         );
     }
