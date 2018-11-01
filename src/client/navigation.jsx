@@ -10,7 +10,8 @@ export class Navigation extends React.Component {
         return(
             <div className="navigationBar">
                 <ul>
-                    <li><NavLink to={"/"}>Home</NavLink></li>
+                    <li><NavLink exact to={"/"}>Home</NavLink></li>
+                    <li><NavLink exact to={"/leaderboard"}>Leaderboard</NavLink></li>
                 </ul>          
             </div>
         );

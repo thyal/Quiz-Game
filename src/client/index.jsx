@@ -4,6 +4,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import {Navigation} from "./navigation";
 import {Home} from "./home";
+import {Leaderboard} from "./leaderboard";
 import {NotFound} from "./notFound";
 
 class App extends React.Component {
@@ -18,6 +19,7 @@ class App extends React.Component {
                     <Navigation />
                     <Switch>
                         <Route exact path="/" component={Home}/>
+                        <Route exact path="/leaderboard" component={Leaderboard}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </div>
