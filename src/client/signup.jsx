@@ -1,27 +1,27 @@
 import React from "react";
 
-export class Login extends React.Component {
+export class Signup extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            user_id: "",
+            username: "",
             password: "",
             error: null
-        };
+        }
     }
 
     render() {
 
         let error = <div></div>;
         if(this.state.error !== null) {
-            error = <div className="errorTxt"><p>{this.state.error}</p></div>;
+            error = <div className="errorTxt"><p>{this.state.error}</p></div>
         }
 
         return(
             <div>
                 {error}
             </div>
-        );
+        )
     }
 }
