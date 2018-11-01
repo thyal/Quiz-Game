@@ -1,14 +1,20 @@
+
+.container {
+    width: 100%;
+}
+
 /* Navbar */
+
+.navigationBar {
+    width: 100%;
+    display: flex;
+}
 .navigationBar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-}
-
-.navigationBar li {
-    float: left;
 }
 
 .navigationBar li a {
@@ -23,6 +29,14 @@
     background-color: #111;
 }
 
-.active {
+.navigationBar .active {
     background-color: #4CAF50;
+}
+
+.navLeft li {
+    float: left;
+}
+
+.navRight li {
+    float: right;
 }

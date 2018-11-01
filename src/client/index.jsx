@@ -6,6 +6,8 @@ import {Navigation} from "./navigation";
 import {Home} from "./home";
 import {Leaderboard} from "./leaderboard";
 import {NotFound} from "./notFound";
+import {Login} from "./login";
+import {Signup} from "./signup";
 
 class App extends React.Component {
     constructor(props) {
@@ -20,6 +22,8 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/leaderboard" component={Leaderboard}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact pat="/signup" component={Signup}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </div>
