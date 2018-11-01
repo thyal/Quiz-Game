@@ -1,19 +1,11 @@
 
-.container {
-    width: 100%;
-}
-
 /* Navbar */
 
-.navigationBar {
-    width: 100%;
-    display: flex;
-}
 .navigationBar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: auto;
     background-color: #333;
 }
 
