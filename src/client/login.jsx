@@ -10,7 +10,8 @@ export class Login extends React.Component {
             error: null
         };
 
-        this.onUsernameChange.bind(this);
+        this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
     }
 
     onUsernameChange(event) {
@@ -21,11 +22,15 @@ export class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
+    onSubmit(event) {
+        event.preventDefault();
+    }
+
     render() {
 
         let html = 
         <div>
-            <form onSubmit={(e) => this.onSubmit(e)}>
+            <form onSubmit={this.onSubmit}>
                 <div>
                     <label
                     htmlFor="username"
@@ -36,7 +41,7 @@ export class Login extends React.Component {
                     type="text"
                     id="username"
                     value={this.state.username}
-                    onChange={(e) => this.onUsernameChange(e)}
+                    onChange={this.onUsernameChange}
                     />
                 </div>
 
@@ -50,8 +55,11 @@ export class Login extends React.Component {
                     type="password"
                     id="password"
                     value={this.state.password}
-                    onChange={(e) => this.onPasswordChange(e)}
+                    onChange={this.onPasswordChange}
                     />
+                </div>
+                <div>
+                    <button type="submit">Log in</button>
                 </div>
             </form>
         </div>
