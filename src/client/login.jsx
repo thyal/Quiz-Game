@@ -60,7 +60,7 @@ export class Login extends React.Component {
                     />
                 </div>
                 <div>
-                    <button type="submit">Log in</button>
+                    <button className="btn btn-login" type="submit">Log in</button>
                 </div>
             </form>
         </div>

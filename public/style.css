@@ -1,4 +1,6 @@
-
+html, body {
+    background-color: #ffffff;
+}
 /* Navbar */
 
 .navigationBar ul {
@@ -6,7 +8,7 @@
     margin: 0;
     padding: 0;
     overflow: auto;
-    background-color: #333;
+    background-color: #4C5B61;
 }
 
 .navigationBar li a {
@@ -22,7 +24,7 @@
 }
 
 .navigationBar .active {
-    background-color: #4CAF50;
+    background-color: #F78764;
 }
 
 .navLeft li {
@@ -38,4 +40,24 @@
 
 .navRight li {
     float: right;
+}
+
+/* Main */
+
+.btn {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn-login {
+    background-color: #F78764;
 }
