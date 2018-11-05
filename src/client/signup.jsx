@@ -72,6 +72,7 @@ export class Signup extends React.Component {
 
         return(
             <div>
+                <h2>Sign up</h2>
                 {html}
                 {error}
             </div>
