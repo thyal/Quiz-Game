@@ -10,8 +10,8 @@ export class Navigation extends React.Component {
         return(
             <div className="navRight">
                 <ul>
-                    <li>Welcome, {username}</li>
-                    <li><button className="btn-logout">Log out</button></li>
+                    <li><NavLink exact to={"/login"}>Log out</NavLink></li>
+                    <li><NavLink exact to={"/signup"}>{username}</NavLink></li>
                 </ul>
             </div>
         );
