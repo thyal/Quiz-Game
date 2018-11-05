@@ -29,6 +29,13 @@
     float: left;
 }
 
+.navRight {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px 8px;
+}
+
 .navRight li {
     float: right;
 }
