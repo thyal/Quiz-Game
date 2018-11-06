@@ -49,11 +49,11 @@ passport.use(new LocalStrategy({
         return done(null, user);
     }));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser(async function(userId, done) {
+passport.deserializeUser(async (userId, done) => {
 
     const user = await Users.find(userId);
 
