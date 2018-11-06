@@ -15,6 +15,19 @@ function find(id) {
     });
 }
 
+function findOne(username) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM users WHERE username = '${username}'`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    });
+}
+
 function findIdOnUsername(username) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT id FROM users WHERE username LIKE '${username}'`;
@@ -64,11 +77,11 @@ function comparePassword(id, password) {
             });
         });
     });
-
 }
 
 module.exports = {
     find,
+    findOne,
     findIdOnUsername,
     insert,
     comparePassword
