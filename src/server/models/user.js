@@ -1,5 +1,6 @@
 const db = require('./dbconnection');
 const bcrypt = require('bcrypt');
+const saltRounds = 12;
 
 function find(id) {
     return new Promise((resolve, reject) => {
@@ -14,20 +15,61 @@ function find(id) {
     });
 }
 
-function insert(username, password) {
+function findIdOnUsername(username) {
     return new Promise((resolve, reject) => {
-        let sql = `INSERT INTO users(username, password) VALUES(${username}, ${password})`;
+        let sql = `SELECT id FROM users WHERE username LIKE '${username}'`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
             }
-            resolve(result);
+            resolve(result[0]);
         });
     });
 }
 
+function insert(username, password) {
+    return new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, function(error, hash) {
+            if(error) reject(error);
+            let sql = `INSERT INTO users(username, password) VALUES('${username}', '${hash}')`;
+    
+            db.query(sql, function(error, result, fields) {
+                if(error) {
+                    reject(error);
+                }
+                resolve(result);
+            });
+        });
+    });
+}
+
+function comparePassword(id, password) {
+    let sql = `SELECT password FROM users WHERE id = ${id}`;
+    let hashedPassword;
+
+    return new Promise((resolve, reject) => {
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            hashedPassword = result[0].password;
+    
+            bcrypt.compare(password, hashedPassword, function(error, result) {
+                if(result) {
+                    resolve(result);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    });
+
+}
+
 module.exports = {
     find,
-    insert
+    findIdOnUsername,
+    insert,
+    comparePassword
 }
