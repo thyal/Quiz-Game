@@ -50,12 +50,12 @@ passport.use(new LocalStrategy({
     }));
 
 passport.serializeUser(function (user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 
-passport.deserializeUser(function (username, done) {
+passport.deserializeUser(async function(userId, done) {
 
-    const user = Users.findOne(username);
+    const user = await Users.find(userId);
 
     if (user !== null) {
         done(null, user);

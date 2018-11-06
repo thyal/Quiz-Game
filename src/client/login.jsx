@@ -23,8 +23,42 @@ export class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
+        const {username, password} = this.state;
+        const url = "api/auth/login";
+
+        const payload = {username: username, password: password};
+
+        let response;
+
+        try {
+            response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch(error) {
+            this.setState({error: error});
+            return;
+        }
+
+
+        if(response.status === 401){
+            this.setState({error: response.statusText});
+            return;
+        }
+
+        if(response.status !== 204){
+            this.setState({error: "Error when connecting to server: status code "+ response.status});
+            return;
+        }
+
+        this.setState({error: null});
+        //this.props.updateLoggedInUserId(userId);
+        this.props.history.push('/');
     }
 
     render() {

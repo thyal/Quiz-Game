@@ -10,7 +10,7 @@ function find(id) {
             if(error) {
                 reject(error);
             }
-            resolve(result);
+            resolve(result[0]);
         });
     });
 }
