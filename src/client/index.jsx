@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import rootReducer from "./reducers/rootReducer";
 
 import {Navigation} from "./navigation";
 import {Home} from "./home";
@@ -8,6 +11,9 @@ import {Leaderboard} from "./leaderboard";
 import {NotFound} from "./notFound";
 import {Login} from "./login";
 import {Signup} from "./signup";
+
+//REDUX
+const store = createStore(rootReducer);
 
 class App extends React.Component {
     constructor(props) {
@@ -32,4 +38,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
