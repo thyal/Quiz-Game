@@ -28,19 +28,6 @@ function findOne(username) {
     });
 }
 
-function findIdOnUsername(username) {
-    return new Promise((resolve, reject) => {
-        let sql = `SELECT id FROM users WHERE username LIKE '${username}'`;
-
-        db.query(sql, function(error, result, fields) {
-            if(error) {
-                reject(error);
-            }
-            resolve(result[0]);
-        });
-    });
-}
-
 function insert(username, password) {
     return new Promise((resolve, reject) => {
         bcrypt.hash(password, saltRounds, function(error, hash) {
@@ -82,7 +69,6 @@ function comparePassword(id, password) {
 module.exports = {
     find,
     findOne,
-    findIdOnUsername,
     insert,
     comparePassword
 }
