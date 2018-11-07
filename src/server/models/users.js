@@ -28,7 +28,7 @@ function findOne(username) {
     });
 }
 
-function insert(username, password) {
+function insertUser(username, password) {
     return new Promise((resolve, reject) => {
         bcrypt.hash(password, saltRounds, function(error, hash) {
             if(error) reject(error);
@@ -69,6 +69,6 @@ function comparePassword(id, password) {
 module.exports = {
     find,
     findOne,
-    insert,
+    insertUser,
     comparePassword
 }

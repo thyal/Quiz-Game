@@ -1,8 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export class Home extends React.Component {
+class Home extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        if(this.props.user === undefined) {
+            this.props.history.push("/login");
+        }
     }
 
     render() {
@@ -13,4 +20,13 @@ export class Home extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user
+    }
+}
+
+export default connect(mapStateToProps)(Home);
 

@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Navigation from "./components/navigation";
-import {Home} from "./components/home";
+import Home from "./components/home";
 import Leaderboard from "./components/leaderboard";
 import {NotFound} from "./components/notFound";
 import Login from "./components/login";
