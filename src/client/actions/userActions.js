@@ -9,12 +9,14 @@ function login(username, password) {
             response = await userService.login(username, password);
             user = await response.json();
         } catch(error) {
-            dispatch(failure(error));
+            //dispatch(failure(error));
         }
         if(response.status ===  401) {
-            dispatch(failure("Wrong credentials"));
-        }
-        dispatch(success(user));     
+            const error = "Wrong credentials";
+            dispatch(failure(error));
+        } else {
+            dispatch(success(user));  
+        }         
     };
 
     //function request(username) { return {type: userConstants.LOGIN_REQUEST, username}}

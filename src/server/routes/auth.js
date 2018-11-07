@@ -26,12 +26,12 @@ router.post('/signup', async (req, res) => {
     } catch(error) {
         res.status(500);
     }
-    console.log(exsistingUser);
+
     if(exsistingUser) {
         return res.status(409).json("A user with this username is already registered.");
     } else {
         const created = await Users.insertUser(username, password);
-        console.log(created);
+
         if(!created){
             res.status(400).send();
             return;

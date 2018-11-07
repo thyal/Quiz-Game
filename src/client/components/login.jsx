@@ -17,6 +17,12 @@ class Login extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //This is needed so that we remove all error / success messages if the component is reloaded.
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch({type: "CLEAR_ALERTS"});
+    }
+
     onUsernameChange(event) {
         this.setState({username: event.target.value});
     }
@@ -73,8 +79,8 @@ class Login extends React.Component {
         </div>
 
         let error = <div></div>;
-        if(this.state.error !== null) {
-            error = <div className="errorTxt"><p>{this.state.error}</p></div>;
+        if(this.props.error !== null) {
+            error = <div className="errorTxt"><p>{this.props.error}</p></div>;
         }
 
         return(
@@ -87,4 +93,13 @@ class Login extends React.Component {
     }
 }
 
-export default connect()(Login)
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user,
+        error: state.userReducer.error
+    }
+}
+
+export default connect(mapStateToProps)(Login)

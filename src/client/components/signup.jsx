@@ -7,11 +7,13 @@ export class Signup extends React.Component {
         this.state = {
             username: "",
             password: "",
+            password2: "",
             error: null
         }
 
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onPassword2Change = this.onPassword2Change.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -23,8 +25,16 @@ export class Signup extends React.Component {
         this.setState({password: event.target.value});
     }
 
+    onPassword2Change(event) {
+        this.setState({password2: event.target.value});
+    }
+
     onSubmit(event) {
         event.preventDefault();
+        const {username, password, password2} = this.state;
+        if(password !== password2) {
+            this.setState({error: "The passwords does not match"});
+        }
     }
 
     render() {
@@ -57,6 +67,20 @@ export class Signup extends React.Component {
                     id="password"
                     value={this.state.password}
                     onChange={this.onPasswordChange}
+                    />
+                </div>
+
+                <div>
+                    <label
+                    htmlFor="password2"
+                    >
+                    Password
+                    </label>
+                    <input
+                    type="password"
+                    id="password2"
+                    value={this.state.password2}
+                    onChange={this.onPassword2Change}
                     />
                 </div>
                 <div>

@@ -8,9 +8,14 @@ const userReducer = (state = {}, action) => {
                 user: action.user
             };
         case userConstants.LOGIN_FAILURE:
-            return {};
+            return {
+                loggedIn: false,
+                error: action.error
+            };
         
         case userConstants.LOGOUT_SUCCESS:
+            return {};
+        case "CLEAR_ALERTS":
             return {};
         default:
             return state;

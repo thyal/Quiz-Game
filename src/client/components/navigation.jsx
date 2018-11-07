@@ -12,7 +12,6 @@ class Navigation extends React.Component {
 
     handleLogout() {
         const { dispatch } = this.props;
-        console.log("heirda")
         dispatch(userActions.logout());
     }
     
@@ -40,6 +39,7 @@ class Navigation extends React.Component {
 
     render() {
         const user = this.props.user;
+
         let navrightContent;
 
         if(user === null || user === undefined) {
