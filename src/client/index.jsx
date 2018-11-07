@@ -5,12 +5,13 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 import rootReducer from "./reducers/rootReducer";
 
-import {Navigation} from "./navigation";
+import Navigation from "./navigation";
 import {Home} from "./home";
-import {Leaderboard} from "./leaderboard";
+import Leaderboard from "./leaderboard";
 import {NotFound} from "./notFound";
 import {Login} from "./login";
 import {Signup} from "./signup";
+import Profile from "./profile";
 
 //REDUX
 const store = createStore(rootReducer);
@@ -29,7 +30,8 @@ class App extends React.Component {
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/leaderboard" component={Leaderboard}/>
                         <Route exact path="/login" component={Login}/>
-                        <Route exact pat="/signup" component={Signup}/>
+                        <Route exact path="/signup" component={Signup}/>
+                        <Route exact path="/profile" component={Profile}/>
                         <Route component={NotFound}/>
                     </Switch>
                 </div>

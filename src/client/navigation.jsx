@@ -1,11 +1,12 @@
 import React from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-export class Navigation extends React.Component {
+class Navigation extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    
     loggedIn(username) {
         return(
             <div className="navRight">
@@ -29,6 +30,7 @@ export class Navigation extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         const username = this.props.username;
         let navrightContent;
 
@@ -51,3 +53,11 @@ export class Navigation extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(Navigation));

@@ -1,6 +1,6 @@
 import React from "react";
 
-export class Leaderboard extends React.Component {
+class Leaderboard extends React.Component {
     constructor(props) {
         super(props);
 
@@ -15,3 +15,5 @@ export class Leaderboard extends React.Component {
         );
     }
 }
+
+export default Leaderboard;
