@@ -12,7 +12,7 @@ class Navigation extends React.Component {
             <div className="navRight">
                 <ul>
                     <li><NavLink exact to={"/login"}>Log out</NavLink></li>
-                    <li><NavLink exact to={"/signup"}>{username}</NavLink></li>
+                    <li><NavLink exact to={"/profile"}>{username}</NavLink></li>
                 </ul>
             </div>
         );
@@ -30,13 +30,13 @@ class Navigation extends React.Component {
     }
 
     render() {
-        const username = this.props.username;
+        const user = this.props.user;
         let navrightContent;
 
-        if(username === null || username === undefined) {
+        if(user === null || user === undefined) {
             navrightContent = this.notLoggedIn();
         } else {
-            navrightContent = this.loggedIn(username);
+            navrightContent = this.loggedIn(user.username);
         }
 
         return(
@@ -53,4 +53,11 @@ class Navigation extends React.Component {
     }
 }
 
-export default withRouter(connect()(Navigation));
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(Navigation));
