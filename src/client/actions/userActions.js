@@ -1,7 +1,7 @@
 import { userConstants } from "../constants/userConstants";
 import { userService } from "../services/userService";
 
-function login(username, password) {
+function login(username, password, history) {
     return async (dispatch) => {
         let response;
         let user;
@@ -15,7 +15,8 @@ function login(username, password) {
             const error = "Wrong credentials";
             dispatch(failure(error));
         } else {
-            dispatch(success(user));  
+            dispatch(success(user));
+            history.push("/");
         }         
     };
 
@@ -24,7 +25,7 @@ function login(username, password) {
     function failure(error) { return {type: userConstants.LOGIN_FAILURE, error}}
 }
 
-function signup(username, password) {
+function signup(username, password, history) {
     return async (dispatch) => {
         let response;
         let user;
@@ -40,6 +41,7 @@ function signup(username, password) {
             let userResponse = await userService.getUser();
             user = await userResponse.json();
             dispatch(success(user));
+            history.push("/");
         }
     };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 
@@ -36,7 +37,7 @@ class Login extends React.Component {
         const {username, password} = this.state;
         const { dispatch } = this.props;
         if(username && password) {
-            dispatch(userActions.login(username, password));
+            dispatch(userActions.login(username, password, this.props.history));
         }
     }
 
@@ -94,7 +95,6 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
@@ -102,4 +102,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 
@@ -17,6 +18,12 @@ class Signup extends React.Component {
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onPassword2Change = this.onPassword2Change.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    //This is needed so that we remove all error / success messages if the component is reloaded.
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch({type: "CLEAR_ALERTS"});
     }
 
     onUsernameChange(event) {
@@ -39,7 +46,7 @@ class Signup extends React.Component {
         } else {
             const { dispatch } = this.props;
             if(username && password) {
-                dispatch(userActions.signup(username, password));
+                dispatch(userActions.signup(username, password, this.props.history));
             }
         }
 
@@ -115,7 +122,6 @@ class Signup extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
@@ -123,4 +129,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Signup);
+export default withRouter(connect(mapStateToProps)(Signup));
