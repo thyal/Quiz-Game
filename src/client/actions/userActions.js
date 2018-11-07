@@ -1,13 +1,10 @@
 import { userConstants } from "../constants/userConstants";
 import { userService } from "../services/userService";
 
-async function login(username, password) {
-    return dispatch => {
-        let user;
+function login(username, password) {
+    return async (dispatch) => {
         try {
-            let response = await userService.login(username, password);
-            user = await response.json();
-
+            let user = await userService.login(username, password);
             dispatch(success(user));
         } catch(error) {
             dispatch(failure(error));
@@ -18,6 +15,7 @@ async function login(username, password) {
     function success(user) { return {type: userConstants.LOGIN_SUCCESS, user}}
     function failure(error) { return {type: userConstants.LOGIN_FAILURE, error}}
 }
+
 
 export const userActions = {
     login

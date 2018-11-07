@@ -30,7 +30,6 @@ class Navigation extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const username = this.props.username;
         let navrightContent;
 
@@ -54,10 +53,4 @@ class Navigation extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user
-    }
-}
-
-export default withRouter(connect(mapStateToProps)(Navigation));
+export default withRouter(connect()(Navigation));

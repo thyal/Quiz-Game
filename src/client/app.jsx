@@ -5,7 +5,7 @@ import Navigation from "./components/navigation";
 import {Home} from "./components/home";
 import Leaderboard from "./components/leaderboard";
 import {NotFound} from "./components/notFound";
-import {Login} from "./components/login";
+import Login from "./components/login";
 import {Signup} from "./components/signup";
 import Profile from "./components/profile";
 

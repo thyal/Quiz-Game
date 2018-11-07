@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 class Leaderboard extends React.Component {
     constructor(props) {
@@ -10,10 +11,18 @@ class Leaderboard extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return(
             <div><h3>Leaderboard</h3></div>
         );
     }
 }
 
-export default Leaderboard;
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user
+    }
+}
+
+export default connect(mapStateToProps)(Leaderboard);
