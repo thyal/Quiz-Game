@@ -24,6 +24,29 @@ function login(username, password) {
     function failure(error) { return {type: userConstants.LOGIN_FAILURE, error}}
 }
 
+function signup(username, password) {
+    return async (dispatch) => {
+        let response;
+        let user;
+        try {
+            response = await userService.signup(username, password);
+        } catch(error) {
+
+        }
+        if(response.status === 409) {
+            const error = "The username already exsist. Please select another one.";
+            dispatch(failure(error));
+        } else if(response.status === 204) {
+            let userResponse = await userService.getUser();
+            user = await userResponse.json();
+            dispatch(success(user));
+        }
+    };
+
+    function success(user) { return {type: userConstants.SIGNUP_SUCCESS, user}}
+    function failure(error) { return {type: userConstants.SIGNUP_FAILURE, error}}
+}
+
 function logout() {
 
     return async (dispatch) => {
@@ -45,5 +68,6 @@ function logout() {
 
 export const userActions = {
     login,
+    signup,
     logout
 }

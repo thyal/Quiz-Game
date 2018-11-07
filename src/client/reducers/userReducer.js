@@ -12,7 +12,16 @@ const userReducer = (state = {}, action) => {
                 loggedIn: false,
                 error: action.error
             };
-        
+        case userConstants.SIGNUP_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.user
+            };
+        case userConstants.SIGNUP_FAILURE:
+            return {
+                loggedIn: false,
+                error: action.error
+            };
         case userConstants.LOGOUT_SUCCESS:
             return {};
         case "CLEAR_ALERTS":

@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { userActions } from "../actions/userActions";
 
-export class Signup extends React.Component {
+class Signup extends React.Component {
     constructor(props) {
         super(props);
 
@@ -34,7 +36,13 @@ export class Signup extends React.Component {
         const {username, password, password2} = this.state;
         if(password !== password2) {
             this.setState({error: "The passwords does not match"});
+        } else {
+            const { dispatch } = this.props;
+            if(username && password) {
+                dispatch(userActions.signup(username, password));
+            }
         }
+
     }
 
     render() {
@@ -92,6 +100,8 @@ export class Signup extends React.Component {
         let error = <div></div>;
         if(this.state.error !== null) {
             error = <div className="errorTxt"><p>{this.state.error}</p></div>
+        } else if(this.props.error !== null) {
+            error = <div className="errorTxt"><p>{this.props.error}</p></div>
         }
 
         return(
@@ -103,3 +113,14 @@ export class Signup extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user,
+        error: state.userReducer.error
+    }
+}
+
+export default connect(mapStateToProps)(Signup);
