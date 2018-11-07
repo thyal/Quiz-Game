@@ -10,7 +10,7 @@ const userReducer = (state = {}, action) => {
         case userConstants.LOGIN_FAILURE:
             return {};
         
-        case userConstants.LOGOUT:
+        case userConstants.LOGOUT_SUCCESS:
             return {};
         default:
             return state;

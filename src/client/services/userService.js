@@ -16,19 +16,17 @@ function login(username, password) {
 function getUser() {
     const url = "api/auth/user";
 
-    return fetch(url).then(handleResponse);
+    return fetch(url);
 }
 
-function handleResponse(response) {
-    if(response.status === 401) {
-        const error = response.statusText;
-        return Promise.reject(error);
-    } else {
-        return response.json();
-    }
+function logout() {
+    const url = "api/auth/logout";
+    
+    return fetch(url, {method: 'POST'});
 }
 
 export const userService = {
     login,
-    getUser
+    getUser,
+    logout
 }

@@ -15,4 +15,10 @@ router.get('/user', (req, res) => {
     res.status(200).json(req.user);
 });
 
+router.post('/logout', function(req, res){
+
+    req.logout();
+    res.status(204).send();
+});
+
 module.exports = router;

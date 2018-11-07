@@ -1,17 +1,26 @@
 import React from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { userActions } from "../actions/userActions";
 
 class Navigation extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout() {
+        const { dispatch } = this.props;
+        console.log("heirda")
+        dispatch(userActions.logout());
     }
     
     loggedIn(username) {
         return(
             <div className="navRight">
                 <ul>
-                    <li><NavLink exact to={"/login"}>Log out</NavLink></li>
+                    <li><button onClick={this.handleLogout}>Log out</button></li>
                     <li><NavLink exact to={"/profile"}>{username}</NavLink></li>
                 </ul>
             </div>
