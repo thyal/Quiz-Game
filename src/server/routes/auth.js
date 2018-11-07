@@ -17,23 +17,36 @@ router.get('/user', (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
 
-    const created = await Users.createUser(req.body.username, req.body.password);
-
-    if(! created){
-        res.status(400).send();
-        return;
+    let exsistingUser;
+    try {
+        exsistingUser = await Users.findOne(username);
+    } catch(error) {
+        res.status(500);
     }
-
-    passport.authenticate('local')(req, res, () => {
-        req.session.save((err) => {
-            if (err) {
-                return next(err);
-            }
-
-            res.status(204).send();
+    console.log(exsistingUser);
+    if(exsistingUser) {
+        return res.status(409).json("A user with this username is already registered.");
+    } else {
+        const created = await Users.insertUser(username, password);
+        console.log(created);
+        if(!created){
+            res.status(400).send();
+            return;
+        }
+    
+        passport.authenticate('local')(req, res, () => {
+            req.session.save((err) => {
+                if (err) {
+                    return next(err);
+                }
+    
+                res.status(204).send();
+            });
         });
-    });
+    }
 });
 
 router.post('/logout', function(req, res){
