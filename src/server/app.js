@@ -7,6 +7,7 @@ const path = require('path');
 
 const Users = require('./models/users');
 const auth = require('./routes/auth');
+const game = require('./routes/game');
 
 const app = express();
 
@@ -69,6 +70,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 //routes
 app.use('/api/auth', auth);
+app.use('/api/game', game);
 
 //handling 404
 app.use((req, res, next) => {

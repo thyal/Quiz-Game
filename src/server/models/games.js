@@ -14,11 +14,11 @@ function find(id) {
 }
 
 function createGame(user_id, name, numberOfQuestions) {
-    let date = Date.now();
+    let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     
     return new Promise((resolve, reject) => {
         let sql = `INSERT INTO games(user_id, name, numberOfQuestions, created_at)
-        VALUES(${user_id}, ${name}, ${numberOfQuestions}, ${date})`;
+        VALUES(${user_id}, '${name}', ${numberOfQuestions}, '${date}')`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
