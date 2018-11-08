@@ -86,7 +86,7 @@ html, body {
     width: 30%;
 }
 
-.input-form input[type=text], input[type=password] {
+.input-form input[type=text], input[type=password], input[type=range] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

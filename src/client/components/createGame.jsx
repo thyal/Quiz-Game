@@ -43,10 +43,10 @@ class CreateGame extends React.Component {
                     <label
                     htmlFor="numberOfQuestions"
                     >
-                    Number of questions in the game, minumum 5, maximum 20.
+                    Number of questions in the game. {this.state.numberOfQuestions}
                     </label>
                     <input
-                    type="number"
+                    type="range"
                     min="5"
                     max="20"
                     id="numberOfQuestions"
