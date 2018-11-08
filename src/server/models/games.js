@@ -29,7 +29,21 @@ function createGame(user_id, name, numberOfQuestions) {
     });
 }
 
+function getActiveGames() {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM games WHERE hasStarted = 0 AND isFinished = 0`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    });
+}
+
 module.exports = {
     find,
-    createGame
+    createGame,
+    getActiveGames
 }
