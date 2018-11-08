@@ -13,17 +13,16 @@ class Login extends React.Component {
             error: null
         };
 
-        this.onUsernameChange = this.onUsernameChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onUsernameChange(event) {
-        this.setState({username: event.target.value});
-    }
-
-    onPasswordChange(event) {
-        this.setState({password: event.target.value});
+    handleChange(event) {
+        const statename = event.target.id;
+        const value = event.target.value;
+        this.setState({
+            [statename]: value
+        });
     }
 
     async onSubmit(event) {
@@ -32,7 +31,9 @@ class Login extends React.Component {
         const { dispatch } = this.props;
         if(username && password) {
             await dispatch(userActions.login(username, password, this.props.history));
-            this.setState({error: this.props.error});
+            if(this.props.error !== undefined) {
+                this.setState({error: this.props.error});
+            }          
         } else {
             this.setState({error: "All fields must be filled out"});
         }
@@ -53,7 +54,7 @@ class Login extends React.Component {
                     type="text"
                     id="username"
                     value={this.state.username}
-                    onChange={this.onUsernameChange}
+                    onChange={this.handleChange}
                     />
                 </div>
 
@@ -67,7 +68,7 @@ class Login extends React.Component {
                     type="password"
                     id="password"
                     value={this.state.password}
-                    onChange={this.onPasswordChange}
+                    onChange={this.handleChange}
                     />
                 </div>
                 <div>

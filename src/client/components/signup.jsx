@@ -14,22 +14,16 @@ class Signup extends React.Component {
             error: null
         }
 
-        this.onUsernameChange = this.onUsernameChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onPassword2Change = this.onPassword2Change.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onUsernameChange(event) {
-        this.setState({username: event.target.value});
-    }
-
-    onPasswordChange(event) {
-        this.setState({password: event.target.value});
-    }
-
-    onPassword2Change(event) {
-        this.setState({password2: event.target.value});
+    handleChange(event) {
+        const statename = event.target.id;
+        const value = event.target.value;
+        this.setState({
+            [statename]: value
+        });
     }
 
     async onSubmit(event) {
@@ -41,12 +35,13 @@ class Signup extends React.Component {
             const { dispatch } = this.props;
             if(username && password && password2) {
                 await dispatch(userActions.signup(username, password, this.props.history));
-                this.setState({error: this.props.error});
+                if(this.props.error !== undefined) {
+                    this.setState({error: this.props.error});
+                }
             } else {
                 this.setState({error: "All fields must be filled out"});
             }
         }
-
     }
 
     render() {
@@ -64,7 +59,7 @@ class Signup extends React.Component {
                     type="text"
                     id="username"
                     value={this.state.username}
-                    onChange={this.onUsernameChange}
+                    onChange={this.handleChange}
                     />
                 </div>
 
@@ -78,7 +73,7 @@ class Signup extends React.Component {
                     type="password"
                     id="password"
                     value={this.state.password}
-                    onChange={this.onPasswordChange}
+                    onChange={this.handleChange}
                     />
                 </div>
 
@@ -92,7 +87,7 @@ class Signup extends React.Component {
                     type="password"
                     id="password2"
                     value={this.state.password2}
-                    onChange={this.onPassword2Change}
+                    onChange={this.handleChange}
                     />
                 </div>
                 <div>

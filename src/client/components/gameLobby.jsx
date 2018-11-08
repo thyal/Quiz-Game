@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import openSocket from 'socket.io-client';
 
 class GameLobby extends React.Component {
@@ -15,6 +16,7 @@ class GameLobby extends React.Component {
         return(
             <div>
                 <h3>Game Lobby</h3>
+                <Link to="/createGame">Create a new game</Link>             
             </div>
         )
     }

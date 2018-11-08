@@ -24,8 +24,6 @@ const userReducer = (state = {}, action) => {
             };
         case userConstants.LOGOUT_SUCCESS:
             return {};
-        case "CLEAR_ALERTS":
-            return {};
         default:
             return state;
     }

@@ -9,6 +9,7 @@ import Login from "./components/login";
 import Signup from "./components/signup";
 import Profile from "./components/profile";
 import GameLobby from "./components/gameLobby";
+import CreateGame from "./components/createGame";
 
 class App extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class App extends React.Component {
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/gameLobby" component={GameLobby}/>
+                            <Route exact path="/createGame" component={CreateGame}/>
                             <Route exact path="/leaderboard" component={Leaderboard}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/signup" component={Signup}/>
