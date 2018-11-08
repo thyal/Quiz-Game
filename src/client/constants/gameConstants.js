@@ -1,0 +1,4 @@
+export const gameConstants = {
+    CREATE_SUCCESS: 'GAME_CREATE_SUCCESS',
+    CREATE_FAILURE: 'GAME_CREATE_FAILURE'
+};

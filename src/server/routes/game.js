@@ -10,7 +10,7 @@ router.post('/create', async(req, res) => {
     }
     const dto = req.body;
 
-    let created = await Games.createGame(req.user.id, req.body.name, req.body.numberOfQuestions);
+    let created = await Games.createGame(req.user.id, dto.name, dto.numberOfQuestions);
 
     if(!created) {
         return res.status(500);
