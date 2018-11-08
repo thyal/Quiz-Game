@@ -1638,7 +1638,7 @@ eval("\n\nvar alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"userActions\", function() { return userActions; });\n/* harmony import */ var _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/userConstants */ \"./src/client/constants/userConstants.js\");\n/* harmony import */ var _services_userService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/userService */ \"./src/client/services/userService.js\");\n\n\n\nfunction login(username, password, history) {\n    return async (dispatch) => {\n        let response;\n        let user;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].login(username, password);\n            user = await response.json();\n        } catch(error) {\n            //dispatch(failure(error));\n        }\n        if(response.status ===  401) {\n            const error = \"Wrong credentials\";\n            dispatch(failure(error));\n        } else {\n            dispatch(success(user));\n            history.push(\"/\");\n        }         \n    };\n\n    //function request(username) { return {type: userConstants.LOGIN_REQUEST, username}}\n    function success(user) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGIN_SUCCESS, user}}\n    function failure(error) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGIN_FAILURE, error}}\n}\n\nfunction signup(username, password, history) {\n    return async (dispatch) => {\n        let response;\n        let user;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].signup(username, password);\n        } catch(error) {\n\n        }\n        if(response.status === 409) {\n            const error = \"The username already exsist. Please select another one.\";\n            dispatch(failure(error));\n        } else if(response.status === 204) {\n            let userResponse = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].getUser();\n            user = await userResponse.json();\n            dispatch(success(user));\n            history.push(\"/\");\n        }\n    };\n\n    function success(user) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].SIGNUP_SUCCESS, user}}\n    function failure(error) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].SIGNUP_FAILURE, error}}\n}\n\nfunction logout() {\n\n    return async (dispatch) => {\n        let response;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].logout();\n        } catch(error) {\n            dispatch(failure());\n        }\n        if(response.status === 204) {\n            dispatch(success());\n        }\n    };\n\n    function success() { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGOUT_SUCCESS}}\n    function failure() { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGOUT_FAILURE}}\n}\n\n\nconst userActions = {\n    login,\n    signup,\n    logout\n}\n\n//# sourceURL=webpack:///./src/client/actions/userActions.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"userActions\", function() { return userActions; });\n/* harmony import */ var _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/userConstants */ \"./src/client/constants/userConstants.js\");\n/* harmony import */ var _services_userService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/userService */ \"./src/client/services/userService.js\");\n\n\n\nfunction login(username, password, history) {\n    return async (dispatch) => {\n        let response;\n        let user;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].login(username, password);\n            user = await response.json();\n        } catch(error) {\n            //dispatch(failure(error));\n        }\n        if(response.status ===  401) {\n            const error = \"Wrong credentials\";\n            dispatch(failure(error));\n        } else {\n            dispatch(success(user));\n            history.push(\"/\");\n        }         \n    };\n    function success(user) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGIN_SUCCESS, user}}\n    function failure(error) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGIN_FAILURE, error}}\n}\n\nfunction signup(username, password, history) {\n    return async (dispatch) => {\n        let response;\n        let user;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].signup(username, password);\n        } catch(error) {\n\n        }\n        if(response.status === 409) {\n            const error = \"The username already exsist. Please select another one.\";\n            dispatch(failure(error));\n        } else if(response.status === 204) {\n            let userResponse = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].getUser();\n            user = await userResponse.json();\n            dispatch(success(user));\n            history.push(\"/\");\n        }\n    };\n\n    function success(user) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].SIGNUP_SUCCESS, user}}\n    function failure(error) { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].SIGNUP_FAILURE, error}}\n}\n\nfunction logout() {\n\n    return async (dispatch) => {\n        let response;\n        try {\n            response = await _services_userService__WEBPACK_IMPORTED_MODULE_1__[\"userService\"].logout();\n        } catch(error) {\n            dispatch(failure());\n        }\n        if(response.status === 204) {\n            dispatch(success());\n        }\n    };\n\n    function success() { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGOUT_SUCCESS}}\n    function failure() { return {type: _constants_userConstants__WEBPACK_IMPORTED_MODULE_0__[\"userConstants\"].LOGOUT_FAILURE}}\n}\n\n\nconst userActions = {\n    login,\n    signup,\n    logout\n}\n\n//# sourceURL=webpack:///./src/client/actions/userActions.js?");
 
 /***/ }),
 
@@ -1762,6 +1762,18 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n    value: true\n});
 
 /***/ }),
 
+/***/ "./src/client/constants/gameConstants.js":
+/*!***********************************************!*\
+  !*** ./src/client/constants/gameConstants.js ***!
+  \***********************************************/
+/*! exports provided: gameConstants */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"gameConstants\", function() { return gameConstants; });\nconst gameConstants = {\n    CREATE_SUCCESS: 'GAME_CREATE_SUCCESS',\n    CREATE_FAILURE: 'GAME_CREATE_FAILURE'\n};\n\n//# sourceURL=webpack:///./src/client/constants/gameConstants.js?");
+
+/***/ }),
+
 /***/ "./src/client/constants/userConstants.js":
 /*!***********************************************!*\
   !*** ./src/client/constants/userConstants.js ***!
@@ -1786,6 +1798,18 @@ eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/i
 
 /***/ }),
 
+/***/ "./src/client/reducers/gameReducer.js":
+/*!********************************************!*\
+  !*** ./src/client/reducers/gameReducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _constants_gameConstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/gameConstants */ \"./src/client/constants/gameConstants.js\");\n\n\nconst gameReducer = (state = {}, action) => {\n    switch(action.type) {\n        case _constants_gameConstants__WEBPACK_IMPORTED_MODULE_0__[\"gameConstants\"].CREATE_SUCCESS:\n            return {\n                gameCreated: true\n            };\n        case _constants_gameConstants__WEBPACK_IMPORTED_MODULE_0__[\"gameConstants\"].CREATE_FAILURE:\n            return {};\n        default:\n            return state;\n    }\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (gameReducer);\n\n//# sourceURL=webpack:///./src/client/reducers/gameReducer.js?");
+
+/***/ }),
+
 /***/ "./src/client/reducers/rootReducer.js":
 /*!********************************************!*\
   !*** ./src/client/reducers/rootReducer.js ***!
@@ -1794,7 +1818,7 @@ eval("\n\nvar _react = __webpack_require__(/*! react */ \"./node_modules/react/i
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _userReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./userReducer */ \"./src/client/reducers/userReducer.js\");\n\n\n\nconst rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\n    userReducer: _userReducer__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (rootReducer);\n\n//# sourceURL=webpack:///./src/client/reducers/rootReducer.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ \"./node_modules/redux/es/redux.js\");\n/* harmony import */ var _userReducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./userReducer */ \"./src/client/reducers/userReducer.js\");\n/* harmony import */ var _gameReducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gameReducer */ \"./src/client/reducers/gameReducer.js\");\n\n\n\n\nconst rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__[\"combineReducers\"])({\n    userReducer: _userReducer__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n    gameReducer: _gameReducer__WEBPACK_IMPORTED_MODULE_2__[\"default\"]\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (rootReducer);\n\n//# sourceURL=webpack:///./src/client/reducers/rootReducer.js?");
 
 /***/ }),
 

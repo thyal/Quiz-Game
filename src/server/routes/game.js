@@ -15,7 +15,8 @@ router.post('/create', async(req, res) => {
     if(!created) {
         return res.status(500);
     }
-    res.status(204).send();
+
+    res.status(201).json(created.insertId);
 
 });
 
