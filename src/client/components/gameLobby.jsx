@@ -1,12 +1,49 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { gameActions } from "../actions/gameActions";
 
 class GameLobby extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch(gameActions.getActiveGames());
+    }
+
     render() {
+
+        let games = <div></div>;
+
+        if(this.props.games !== undefined) {
+            games = 
+            <div>
+                <table className="tbl-active-games">
+                    <thead>
+                        <tr>
+                            <th>Game id</th>
+                            <th>Name</th>
+                            <th>Number of questions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.games.map(e => 
+                            <tr key={e.id}>
+                                <td>{e.id}</td>
+                                <td>{e.name}</td>
+                                <td>{e.numberOfQuestions}</td>
+                                <td><button>JOIN</button></td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        }
+
         return(
             <div>
                 <div>
@@ -15,10 +52,19 @@ class GameLobby extends React.Component {
                 </div>           
                 <div>
                     <h3>List of active games</h3>
+                    {games}
                 </div>
             </div>
         )
     }
 }
 
-export default GameLobby;
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user,
+        games: state.gameReducer.games
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(GameLobby));

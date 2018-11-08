@@ -11,6 +11,13 @@ function createGame(name, numberOfQuestions) {
     return fetch(url, options);  
 }
 
+function getActiveGames() {
+    const url = "api/game/active";
+    
+    return fetch(url);
+}
+
 export const gameService = {
-    createGame
+    createGame,
+    getActiveGames
 }

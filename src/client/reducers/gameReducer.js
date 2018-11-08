@@ -12,6 +12,14 @@ const gameReducer = (state = {}, action) => {
             return {
                 error: action.error
             };
+        case gameConstants.GET_ACTIVE_SUCCESS:
+            return {
+                games: action.games
+            };
+        case gameConstants.GET_ACTIVE_FAILURE:
+            return {
+                error: action.error
+            };
         default:
             return state;
     }
