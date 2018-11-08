@@ -7,11 +7,17 @@ import { gameActions } from "../actions/gameActions";
 class GameLobby extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(gameActions.getActiveGames());
+    }
+
+    handleClick(id) {
+        this.props.history.push(`/game/${id}`);
     }
 
     render() {
@@ -36,7 +42,7 @@ class GameLobby extends React.Component {
                                 <td>{e.id}</td>
                                 <td>{e.name}</td>
                                 <td>{e.numberOfQuestions}</td>
-                                <td><button>JOIN</button></td>
+                                <td><button onClick={() => this.handleClick(e.id)}>JOIN</button></td>
                             </tr>
                         )}
                     </tbody>
