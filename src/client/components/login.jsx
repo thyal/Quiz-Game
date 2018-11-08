@@ -18,12 +18,6 @@ class Login extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    //This is needed so that we remove all error / success messages if the component is reloaded.
-    componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch({type: "CLEAR_ALERTS"});
-    }
-
     onUsernameChange(event) {
         this.setState({username: event.target.value});
     }
@@ -32,12 +26,12 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
         const {username, password} = this.state;
         const { dispatch } = this.props;
         if(username && password) {
-            dispatch(userActions.login(username, password, this.props.history));
+            await dispatch(userActions.login(username, password, this.props.history));
             this.setState({error: this.props.error});
         } else {
             this.setState({error: "All fields must be filled out"});
