@@ -1,16 +1,19 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { gameActions } from "../actions/gameActions";
 
 class CreateGame extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            creatorUsername: "",
             name: "",
             numberOfQuestions: 10,
             error: null
         };
         this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -21,10 +24,24 @@ class CreateGame extends React.Component {
         });
     }
 
+    async onSubmit(event) {
+        event.preventDefault();
+        const {name, numberOfQuestions} = this.state;
+        const { dispatch } = this.props;
+        if(name && numberOfQuestions) {
+            await dispatch(gameActions.createGame(name, numberOfQuestions, this.props.history));
+            if(this.props.error !== undefined) {
+                this.setState({error: this.props.error});
+            }          
+        } else {
+            this.setState({error: "All fields must be filled out"});
+        }
+    }
+
     render() {
         let html = 
         <div className="input-form">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.onSubmit}>
                 <div>
                     <label
                     htmlFor="name"
@@ -66,6 +83,14 @@ class CreateGame extends React.Component {
             </div>
         );
     }
-} 
+}
 
-export default CreateGame;
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user,
+        error: state.gameReducer.error
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(CreateGame));

@@ -9,7 +9,9 @@ const gameReducer = (state = {}, action) => {
                 waitingForPlayers: true
             };
         case gameConstants.CREATE_FAILURE:
-            return {};
+            return {
+                error: action.error
+            };
         default:
             return state;
     }
