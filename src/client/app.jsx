@@ -10,6 +10,7 @@ import Signup from "./components/signup";
 import Profile from "./components/profile";
 import GameLobby from "./components/gameLobby";
 import CreateGame from "./components/createGame";
+import Game from "./components/game";
 
 class App extends React.Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class App extends React.Component {
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/gameLobby" component={GameLobby}/>
                             <Route exact path="/createGame" component={CreateGame}/>
+                            <Route exact path="/game/:id" component={Game}/>
                             <Route exact path="/leaderboard" component={Leaderboard}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/signup" component={Signup}/>

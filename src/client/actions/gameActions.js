@@ -17,7 +17,7 @@ function createGame(name, numberOfQuestions, history) {
         } else if(response.status === 201) {
             dispatch(success(gameId));
             history.push(`/game/${gameId}`);
-        }         
+        }
     };
     function success(gameId) { return {type: gameConstants.CREATE_SUCCESS, gameId}}
     function failure(error) { return {type: gameConstants.CREATE_FAILURE, error}}

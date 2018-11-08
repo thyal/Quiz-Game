@@ -4,7 +4,7 @@ const gameReducer = (state = {}, action) => {
     switch(action.type) {
         case gameConstants.CREATE_SUCCESS:
             return {
-                InGame: true,
+                inGame: true,
                 gameId: action.gameId,
                 waitingForPlayers: true
             };
