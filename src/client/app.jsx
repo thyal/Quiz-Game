@@ -19,14 +19,16 @@ class App extends React.Component {
             <BrowserRouter>
                 <div>
                     <Navigation />
-                    <Switch>
-                        <Route exact path="/" component={Home}/>
-                        <Route exact path="/leaderboard" component={Leaderboard}/>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/signup" component={Signup}/>
-                        <Route exact path="/profile" component={Profile}/>
-                        <Route component={NotFound}/>
-                    </Switch>
+                    <div className="content">
+                        <Switch>
+                            <Route exact path="/" component={Home}/>
+                            <Route exact path="/leaderboard" component={Leaderboard}/>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/signup" component={Signup}/>
+                            <Route exact path="/profile" component={Profile}/>
+                            <Route component={NotFound}/>
+                        </Switch>
+                    </div>
                 </div>
             </BrowserRouter>
         );

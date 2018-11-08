@@ -32,19 +32,22 @@ class Login extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    async onSubmit(event) {
+    onSubmit(event) {
         event.preventDefault();
         const {username, password} = this.state;
         const { dispatch } = this.props;
         if(username && password) {
             dispatch(userActions.login(username, password, this.props.history));
+            this.setState({error: this.props.error});
+        } else {
+            this.setState({error: "All fields must be filled out"});
         }
     }
 
     render() {
 
         let html = 
-        <div>
+        <div className="input-form">
             <form onSubmit={this.onSubmit}>
                 <div>
                     <label
@@ -74,15 +77,16 @@ class Login extends React.Component {
                     />
                 </div>
                 <div>
-                    <button className="btn btn-login" type="submit">Log in</button>
+                    <button className="btn btn-submit" type="submit">Log in</button>
                 </div>
             </form>
         </div>
 
         let error = <div></div>;
-        if(this.props.error !== null) {
-            error = <div className="errorTxt"><p>{this.props.error}</p></div>;
+        if(this.state.error !== null && this.state.error !== undefined) {
+            error = <div className="error-msg"><p>{this.state.error}</p></div>;
         }
+        
 
         return(
             <div>

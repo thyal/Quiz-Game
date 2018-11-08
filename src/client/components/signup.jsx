@@ -45,8 +45,11 @@ class Signup extends React.Component {
             this.setState({error: "The passwords does not match"});
         } else {
             const { dispatch } = this.props;
-            if(username && password) {
+            if(username && password && password2) {
                 dispatch(userActions.signup(username, password, this.props.history));
+                this.setState({error: this.props.error});
+            } else {
+                this.setState({error: "All fields must be filled out"});
             }
         }
 
@@ -55,7 +58,7 @@ class Signup extends React.Component {
     render() {
 
         let html = 
-        <div>
+        <div className="input-form">
             <form onSubmit={this.onSubmit}>
                 <div>
                     <label
@@ -89,7 +92,7 @@ class Signup extends React.Component {
                     <label
                     htmlFor="password2"
                     >
-                    Password
+                    Enter password again
                     </label>
                     <input
                     type="password"
@@ -99,16 +102,14 @@ class Signup extends React.Component {
                     />
                 </div>
                 <div>
-                    <button type="submit">Log in</button>
+                    <button className="btn btn-submit" type="submit">Sign up</button>
                 </div>
             </form>
         </div>
 
         let error = <div></div>;
-        if(this.state.error !== null) {
-            error = <div className="errorTxt"><p>{this.state.error}</p></div>
-        } else if(this.props.error !== null) {
-            error = <div className="errorTxt"><p>{this.props.error}</p></div>
+        if(this.state.error !== null && this.state.error !== undefined) {
+            error = <div className="error-msg"><p>{this.state.error}</p></div>;
         }
 
         return(
