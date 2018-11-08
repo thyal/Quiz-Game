@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Home extends React.Component {
@@ -16,6 +17,7 @@ class Home extends React.Component {
         return(
             <div>
                 <p>Heeeei</p>
+                <Link to="/gameLobby">Start a game</Link>
             </div>
         );
     }
