@@ -56,10 +56,19 @@ class Game extends React.Component {
                 )}
             </div>;
         }
+
+        let startGameBtn = <div></div>;
+
+        if(this.props.userCreatedGame) {
+            startGameBtn = <button className="btn btn-submit">START GAME</button>
+        }
+
         return(
             <div>
                 <h3>GAME</h3>
                 {users}
+
+                {startGameBtn}
             </div>
         )
     }
@@ -71,6 +80,7 @@ const mapStateToProps = (state) => {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
         inGame: state.gameReducer.inGame,
+        userCreatedGame: state.gameReducer.userCreatedGame,
         gameId: state.gameReducer.gameId,
         waitingForPlayers: state.gameReducer.waitingForPlayers,
         users: state.gameReducer.users
