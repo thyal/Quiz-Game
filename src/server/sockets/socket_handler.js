@@ -5,11 +5,16 @@ let io;
 
 const start = (server) => {
 
-    //start a WebSocket server besides the REST API from Express
+
     io = socketIo(server);
 
-    io.on('connection', function(socket){
-        console.log("a user connected");
+    io.on('connection', function(socket) {
+
+        //We expect each socket to send the gameId of the game they want to join when they connect.
+        socket.on('game', function(gameId) {
+            console.log(gameId);
+            socket.join(gameId);
+        })
     });
 };
 

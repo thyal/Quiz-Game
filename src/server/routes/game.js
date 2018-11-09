@@ -39,4 +39,16 @@ router.get('/active', async (req, res) => {
 
 });
 
+router.get('/isGameJoinable/:gameId', async (req, res) => {
+
+    let response;
+    try {
+        response = await Games.checkIfGameIsJoinable(req.params.gameId);
+    } catch(error) {
+        return res.status(500);
+    }
+       
+    res.status(200).json(response);
+});
+
 module.exports = router;

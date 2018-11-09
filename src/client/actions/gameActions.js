@@ -23,6 +23,10 @@ function createGame(name, numberOfQuestions, history) {
     function failure(error) { return {type: gameConstants.CREATE_FAILURE, error}}
 }
 
+function joinGame(gameId, history) {
+    
+}
+
 function getActiveGames() {
     return async (dispatch) => {
         let response;

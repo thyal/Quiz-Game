@@ -42,8 +42,20 @@ function getActiveGames() {
     });
 }
 
+function checkIfGameIsJoinable(gameId) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM games WHERE id = ${gameId} AND hasStarted = 0 AND isFinished = 0`;
+
+        db.query(sql, function(error, result, fields) {
+            resolve(result.length > 0);
+        });
+    });
+    
+}
+
 module.exports = {
     find,
     createGame,
-    getActiveGames
+    getActiveGames,
+    checkIfGameIsJoinable
 }
