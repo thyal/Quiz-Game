@@ -9,6 +9,10 @@
 * [Technologies used](#technologies-used)
 * [Structure](#structure)
   * [Back-end](#back-end)
+    * [Models](#models)
+    * [Routes](#routes)
+    * [Sockets](#sockets)
+    * [Root Folder](#root-folder)
   * [Front-end](#front-end)
     * [Actions](#actions)
     * [Components](#components)
@@ -54,6 +58,18 @@ We have seen most of these technologies in the course, the main difference here 
 ## Structure
 
 ### Back-end
+
+#### Models
+Contains the models in the app. A model is a representation of a table in the database (here a model will in a few cases include more than one table). All SQL logic is here, and the routes and sockets that are using these models have no direct impact on the SQL queries. This means we could easily change the database used for another one, by just changing the logic in this folder.
+
+#### Routes
+Here is the endpoints of the API. 
+
+#### Sockets
+Contains the websocket.
+
+#### Root Folder
+Contains the server.
 
 ### Front-end
 I will go through each folder, and explain the contents. The structure is based on redux spesific workflow, so which means I have a folder for each redux-event. The normal react components are under the components folder.
