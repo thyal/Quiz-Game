@@ -47,8 +47,39 @@ router.get('/isGameJoinable/:gameId', async (req, res) => {
     } catch(error) {
         return res.status(500);
     }
-       
+
     res.status(200).json(response);
 });
+
+// router.post('/joinGame/:gameId&:isCreator', async (req, res) => {
+//     let gameId = req.params.gameId;
+//     let isCreator = req.params.isCreator;
+
+//     if(!req.user) {
+//         res.status(401).send();
+//         return;
+//     }
+    
+//     let joined = await Games.joinGame(req.user.id, gameId, isCreator);
+
+//     if(!joined) {
+//         res.status(400).send();
+//         return;
+//     }
+
+//     res.status(204).send();
+// });
+
+router.get('/usersInGame/:gameId', async (req, res) => {
+    let response;
+
+    try {
+        response = await Games.getUsersInGame(req.params.gameId);
+    } catch(error) {
+        return res.status(500);
+    }
+
+    res.status(200).json(response);
+})
 
 module.exports = router;

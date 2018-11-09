@@ -49,13 +49,41 @@ function checkIfGameIsJoinable(gameId) {
         db.query(sql, function(error, result, fields) {
             resolve(result.length > 0);
         });
+    }); 
+}
+
+function joinGame(user_id, game_id, isCreator) {
+    return new Promise((resolve, reject) => {
+        let sql = `INSERT INTO userScores(user_id, game_id, userScore, isCreator)
+        VALUES(${user_id}, ${game_id}, 0, ${isCreator})`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
     });
-    
+}
+
+function getUsersInGame(game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT user_id FROM userScores WHERE game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    })
 }
 
 module.exports = {
     find,
     createGame,
     getActiveGames,
-    checkIfGameIsJoinable
+    checkIfGameIsJoinable,
+    joinGame,
+    getUsersInGame
 }

@@ -12,7 +12,13 @@ function createGame(name, numberOfQuestions) {
 }
 
 function isGameJoinable(gameId) {
-    const url = "/api/game/isGameJoinable/1";
+    const url = `/api/game/isGameJoinable/${gameId}`;
+
+    return fetch(url);
+}
+
+function getUsersInGame(gameId) {
+    const url = `/api/game/usersInGame/${gameId}`;
 
     return fetch(url);
 }
@@ -26,5 +32,6 @@ function getActiveGames() {
 export const gameService = {
     createGame,
     isGameJoinable,
+    getUsersInGame,
     getActiveGames
 }

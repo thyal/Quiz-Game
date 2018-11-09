@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import openSocket from 'socket.io-client';
 import { gameActions } from "../actions/gameActions";
 
 class GameLobby extends React.Component {
@@ -12,12 +13,14 @@ class GameLobby extends React.Component {
     }
 
     componentDidMount() {
+        
         const { dispatch } = this.props;
         dispatch(gameActions.getActiveGames());
     }
 
     handleClick(id) {
-        this.props.history.push(`/game/${id}`);
+        const { dispatch } = this.props;
+        dispatch(gameActions.joinGame(id, this.props.history));
     }
 
     render() {
