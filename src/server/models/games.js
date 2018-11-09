@@ -68,7 +68,7 @@ function joinGame(user_id, game_id, isCreator) {
 
 function getUsersInGame(game_id) {
     return new Promise((resolve, reject) => {
-        let sql = `SELECT user_id FROM userScores WHERE game_id = ${game_id}`;
+        let sql = `SELECT * FROM vUserScores WHERE game_id = ${game_id}`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {

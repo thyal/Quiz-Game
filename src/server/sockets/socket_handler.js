@@ -17,7 +17,7 @@ const start = (server) => {
             socket.join(payload.gameId);
             let joined;
             try {
-                joined = await Games.joinGame(payload.userId, payload.gameId, 0);
+                joined = await Games.joinGame(payload.user_id, payload.gameId, 0);
             } catch(error) {
                 console.log(error);
             }
@@ -26,7 +26,7 @@ const start = (server) => {
 
             // }
             
-            socket.to(payload.gameId).emit('newUser', payload.userId);
+            socket.to(payload.gameId).emit('newUser', payload);
         });
     });
 };

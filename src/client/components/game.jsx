@@ -16,10 +16,16 @@ class Game extends React.Component {
     async componentDidMount() {
         await this.getUsers();
         this.socket = openSocket(window.location.origin);
-        const payload = {userId: this.props.user.id, gameId: this.props.gameId};
+        
+        const payload = {
+            user_id: this.props.user.id, 
+            username: this.props.user.username, 
+            gameId: this.props.gameId
+        };
+
         this.socket.emit('game', payload);
         this.socket.on('newUser', (user) => {
-            console.log(user);
+
             this.setState(
                 prev => {
                     if(prev.users === null || prev.users === undefined){
@@ -34,9 +40,9 @@ class Game extends React.Component {
 
     async getUsers() {
         const { dispatch } = this.props;
-        let users = await dispatch(gameActions.getUsersInGame(this.props.gameId));
-        console.log(users);
-        this.setState({users: users});
+        await dispatch(gameActions.getUsersInGame(this.props.gameId));
+
+        this.setState({users: this.props.users});
     }
 
     render() {
@@ -46,7 +52,7 @@ class Game extends React.Component {
         if(this.state.users !== null && this.state.users !== undefined){
             users = <div>
                 {this.state.users.map(user =>
-                    <p key={user.user_id}> {user.user_id}</p>
+                    <p key={user.user_id}> {user.username}</p>
                 )}
             </div>;
         }
@@ -66,7 +72,8 @@ const mapStateToProps = (state) => {
         user: state.userReducer.user,
         inGame: state.gameReducer.inGame,
         gameId: state.gameReducer.gameId,
-        waitingForPlayers: state.gameReducer.waitingForPlayers
+        waitingForPlayers: state.gameReducer.waitingForPlayers,
+        users: state.gameReducer.users
     }
 }
 
