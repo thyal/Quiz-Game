@@ -75,7 +75,7 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
