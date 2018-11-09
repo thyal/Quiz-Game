@@ -3,14 +3,10 @@ import { gameService } from "../services/gameService";
 
 function createGame(name, numberOfQuestions, history) {
     return async (dispatch) => {
-        let response;
-        let gameId;
-        try {
-            response = await gameService.createGame(name, numberOfQuestions);
-            gameId = await response.json();
-        } catch(error) {
-            //dispatch(failure(error));
-        }
+
+        let response = await gameService.createGame(name, numberOfQuestions);
+        let gameId = await response.json();
+
         if(response.status ===  401) {
             const error = "You are not logged in";
             dispatch(failure(error));
@@ -25,14 +21,10 @@ function createGame(name, numberOfQuestions, history) {
 
 function joinGame(gameId, history) {
     return async (dispatch) => {
-        let response;
-        let gameIsJoinable;
-        try {
-            response = await gameService.isGameJoinable(gameId);
-            gameIsJoinable = await response.json();
-        } catch(error) {
 
-        }
+        let response = await gameService.isGameJoinable(gameId);
+        let gameIsJoinable = await response.json();
+
         if(gameIsJoinable) {
            dispatch(success(gameId));
            history.push(`/game/${gameId}`);
@@ -61,14 +53,10 @@ function getUsersInGame(gameId) {
 
 function getActiveGames() {
     return async (dispatch) => {
-        let response;
-        let games;
-        try {
-            response = await gameService.getActiveGames();
-            games = await response.json();
-        } catch(error) {
 
-        }
+        let response = await gameService.getActiveGames();
+        let games = await response.json();
+
         if(response.status === 401) {
             const error = "You are not logged in";
             dispatch(failure(error));

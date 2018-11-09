@@ -20,7 +20,7 @@ has installed nodejs, npm and docker. This is all that is needed to run this pro
 The first thing you need to do is run the NPM command `npm install`.
 This will install all dependencies.
 The next thing is to run the NPM command `npm run setup`.
-This will initialize the database and create tables etc. It is very important that you wait for it to finish.
+This will initialize the database and create tables etc. **It is very important that you wait for it to finish.**
 
 Now that all dependencies are installed, and the database is up and running, you can run the NPM command `npm run dev` to actually run the project. The homepage should now be avaliable at http://localhost:8080
 

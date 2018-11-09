@@ -3,14 +3,10 @@ import { userService } from "../services/userService";
 
 function login(username, password, history) {
     return async (dispatch) => {
-        let response;
-        let user;
-        try {
-            response = await userService.login(username, password);
-            user = await response.json();
-        } catch(error) {
-            //dispatch(failure(error));
-        }
+
+        let response = await userService.login(username, password);
+        let user = await response.json();
+
         if(response.status ===  401) {
             const error = "Wrong credentials";
             dispatch(failure(error));
@@ -25,19 +21,15 @@ function login(username, password, history) {
 
 function signup(username, password, history) {
     return async (dispatch) => {
-        let response;
-        let user;
-        try {
-            response = await userService.signup(username, password);
-        } catch(error) {
 
-        }
+        let response = await userService.signup(username, password);
+
         if(response.status === 409) {
             const error = "The username already exsist. Please select another one.";
             dispatch(failure(error));
         } else if(response.status === 204) {
             let userResponse = await userService.getUser();
-            user = await userResponse.json();
+            let user = await userResponse.json();
             dispatch(success(user));
             history.push("/");
         }
@@ -50,14 +42,13 @@ function signup(username, password, history) {
 function logout() {
 
     return async (dispatch) => {
-        let response;
-        try {
-            response = await userService.logout();
-        } catch(error) {
-            dispatch(failure());
-        }
+
+        let response = await userService.logout();
+
         if(response.status === 204) {
             dispatch(success());
+        } else {
+            dispatch(failure());
         }
     };
 
