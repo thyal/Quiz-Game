@@ -5,10 +5,22 @@ const gameReducer = (state = {}, action) => {
         case gameConstants.CREATE_SUCCESS:
             return {
                 inGame: true,
+                userCreatedGame: true,
                 gameId: action.gameId,
                 waitingForPlayers: true
             };
         case gameConstants.CREATE_FAILURE:
+            return {
+                error: action.error
+            };
+        case gameConstants.JOIN_SUCCESS:
+            return {
+                inGame: true,
+                userCreatedGame: false,
+                gameId: action.gameId,
+                waitingForPlayers: true
+            };
+        case gameConstants.JOIN_FAILURE: 
             return {
                 error: action.error
             };

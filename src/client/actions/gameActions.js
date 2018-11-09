@@ -24,7 +24,24 @@ function createGame(name, numberOfQuestions, history) {
 }
 
 function joinGame(gameId, history) {
-    
+    return async (dispatch) => {
+        let response;
+        let gameIsJoinable;
+        try {
+            response = await gameService.isGameJoinable(gameId);
+            gameIsJoinable = await response.json();
+        } catch(error) {
+
+        }
+        if(gameIsJoinable) {
+           dispatch(success(gameId));
+           history.push(`/game/${gameId}`);
+        } else {
+            dispatch(failure("Game could not be joined."));
+        }
+    }
+    function success(gameId) { return {type: gameConstants.JOIN_SUCCESS, gameId}}
+    function failure(error) { return {type: gameConstants.JOIN_FAILURE, error}}
 }
 
 function getActiveGames() {
@@ -50,5 +67,6 @@ function getActiveGames() {
 
 export const gameActions = {
     createGame,
+    joinGame,
     getActiveGames
 }
