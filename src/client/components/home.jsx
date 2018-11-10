@@ -7,17 +7,22 @@ class Home extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-        if(this.props.user === undefined) {
-            this.props.history.push("/login");
-        }
-    }
-
     render() {
+        let html = <div></div>;
+
+        if(this.props.user === undefined) {
+            html = <div>
+                <p>You have to log in to play</p>
+                <button className="btn"><Link to="/login">Login</Link></button>
+            </div>
+        } else {
+            html = <button className="btn btn-submit"><Link to="/gameLobby">Start a game</Link></button>
+        }
+
         return(
             <div>
-                <p>Heeeei</p>
-                <Link to="/gameLobby">Start a game</Link>
+                <h2>Quiz</h2>
+                {html}
             </div>
         );
     }

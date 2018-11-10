@@ -25,6 +25,15 @@ class GameLobby extends React.Component {
 
     render() {
 
+        let inputGameId = 
+        <div>
+            <form className="input-form">
+                <label htmlFor="inputGameId">Enter the game id for a game you want to join</label>
+                <input type="number" id="inputGameId"/>
+                <button className="btn btn-submit">JOIN</button>
+            </form>
+        </div>
+
         let games = <div></div>;
 
         if(this.props.games !== undefined) {
@@ -58,7 +67,8 @@ class GameLobby extends React.Component {
                 <div>
                     <h3>Game Lobby</h3>
                     <Link to="/createGame">Create a new game</Link>  
-                </div>           
+                </div>
+                {inputGameId}           
                 <div>
                     <h3>List of active games</h3>
                     {games}

@@ -66,6 +66,7 @@ class Game extends React.Component {
         return(
             <div>
                 <h3>GAME</h3>
+                <h4>Players who joined the game</h4>
                 {users}
 
                 {startGameBtn}
