@@ -9,8 +9,10 @@ class Game extends React.Component {
         super(props);
 
         this.state = {
-            users: []
+            users: [],
+            hasStarted: false
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async componentDidMount() {
@@ -36,6 +38,10 @@ class Game extends React.Component {
                 }
             )
         });
+
+        this.socket.on('starting', (msg) => {
+            this.setState({hasStarted: true});
+        })
     }
 
     async getUsers() {
@@ -45,12 +51,18 @@ class Game extends React.Component {
         this.setState({users: this.props.users});
     }
 
+    handleClick() {
+
+        this.socket.emit('startGame', this.props.gameId);
+    }
+
     render() {
 
-        let users = <div></div>;
+        let html = <div></div>;
 
         if(this.state.users !== null && this.state.users !== undefined){
-            users = <div>
+            html = <div>
+                <h4>Players who joined the game</h4>
                 {this.state.users.map(user =>
                     <p key={user.user_id}> {user.username}</p>
                 )}
@@ -59,15 +71,18 @@ class Game extends React.Component {
 
         let startGameBtn = <div></div>;
 
-        if(this.props.userCreatedGame) {
-            startGameBtn = <button className="btn btn-submit">START GAME</button>
+        if(this.props.userCreatedGame && !this.state.hasStarted) {
+            startGameBtn = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+        }
+
+        if(this.state.hasStarted) {
+            html = <h2>PLAYING</h2>
         }
 
         return(
             <div>
                 <h3>GAME</h3>
-                <h4>Players who joined the game</h4>
-                {users}
+                {html}
 
                 {startGameBtn}
             </div>

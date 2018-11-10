@@ -26,7 +26,13 @@ const start = (server) => {
             }
             socket.to(payload.gameId).emit('newUser', payload);
         });
+        socket.on('startGame', (gameId) => {
+            console.log("start game: " + gameId);
+
+            io.in(gameId).emit('starting', "game is starting");
+        })
     });
+    
 };
 
 module.exports = {start};

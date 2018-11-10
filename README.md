@@ -20,6 +20,7 @@
     * [Reducers](#reducers)
     * [Services](#services)
     * [Root Folder](#root-folder)
+  * [Database](#database)
 
 ## Live URL
 This project is uploaded to a cloud provider (composed with Docker), and can be seen here;
@@ -93,4 +94,8 @@ These are API calls.
 
 #### Root Folder
 Contains the entrypoint of the front-end (index.jsx) which sets up the redux store and renders app.jsx which contains the routing logic.
+
+### Database
+I used a mysql database for this project, and it is running with docker. The docker setup will create a instance of a mysql database, create a user, create all tables and views, and seed some data. All questions and answers are seeded in at startup.
+There are 6 tables in this project, users, games, userScores, categories, questions and answers. 
 
