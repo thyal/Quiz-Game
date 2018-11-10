@@ -79,11 +79,39 @@ function getUsersInGame(game_id) {
     })
 }
 
+function startGame(game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE games SET hasStarted = 1 WHERE game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    });
+}
+
+function endGame(game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE games SET isFinished = 1 WHERE game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    });
+}
+
 module.exports = {
     find,
     createGame,
     getActiveGames,
     checkIfGameIsJoinable,
     joinGame,
-    getUsersInGame
+    getUsersInGame,
+    startGame,
+    endGame
 }
