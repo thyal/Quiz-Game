@@ -1,5 +1,14 @@
 const Games = require('../models/games');
 
+// class Match {
+//     constructor(gameId, players) {
+//         this.gameId = gameId;
+//         this.players = players;
+//     }
+
+
+// }
+
 
 async function getGame(gameId) {
     let game;
@@ -17,7 +26,7 @@ async function startGame(gameId) {
     } catch(error) {
         return false;
     }
-    return true; 
+    return true;
 }
 
 async function endGame(gameId) {

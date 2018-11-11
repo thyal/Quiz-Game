@@ -1,6 +1,7 @@
 const socketIo = require('socket.io');
 const Tokens = require('./tokens');
 const Games = require('../models/games');
+const Match = require('../game/match');
 
 let io;
 
@@ -26,11 +27,17 @@ const start = (server) => {
             }
             socket.to(payload.gameId).emit('newUser', payload);
         });
-        socket.on('startGame', (gameId) => {
-            console.log("start game: " + gameId);
-
+        
+        
+        socket.on('startGame', async (gameId) => {
+            
             io.in(gameId).emit('starting', "game is starting");
-        })
+
+            const match = new Match(gameId, "he", 10);
+
+            let question = await match.provideQuestion();
+            
+        });
     });
     
 };

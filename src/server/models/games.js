@@ -81,7 +81,7 @@ function getUsersInGame(game_id) {
 
 function startGame(game_id) {
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE games SET hasStarted = 1 WHERE game_id = ${game_id}`;
+        let sql = `UPDATE games SET hasStarted = 1 WHERE id = ${game_id}`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
@@ -94,7 +94,49 @@ function startGame(game_id) {
 
 function endGame(game_id) {
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE games SET isFinished = 1 WHERE game_id = ${game_id}`;
+        let sql = `UPDATE games SET isFinished = 1 WHERE id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    });
+}
+
+/* QUESTIONS AND ANSWERS */
+
+function getTotalNumberOfQuestions() {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT COUNT(id) AS total FROM questions`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    })
+}
+
+
+function getOneQuestion(question_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM vQuestions WHERE id = ${question_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    });
+}
+
+function getAnswers(question_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM answers WHERE question_id = ${question_id}`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
@@ -113,5 +155,8 @@ module.exports = {
     joinGame,
     getUsersInGame,
     startGame,
-    endGame
+    endGame,
+    getTotalNumberOfQuestions,
+    getOneQuestion,
+    getAnswers
 }
