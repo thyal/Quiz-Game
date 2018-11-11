@@ -2,17 +2,14 @@ const Games = require('../models/games');
 
 class Match {
     
-    constructor(gameId, players, numberOfQuestions) {
+    constructor(gameId, numberOfQuestions, players) {
         this.gameId = gameId;
-        this.players = players;
+        this.isFinished = false;
         this.numberOfQuestions = numberOfQuestions;
         this.questionCounter = 0;
     }
 
     async provideQuestion() {
-        // if(this.gameIsFinished) {
-        //     return;
-        // }
 
         let numberOfQuestions = await Games.getTotalNumberOfQuestions();
         let randomId = Math.floor(Math.random() * numberOfQuestions.total) + 1;
@@ -28,10 +25,13 @@ class Match {
     }
 
 
-    gameIsFinished() {
+    isGameFinished() {
         return this.questionCounter >= this.numberOfQuestions;
     }
 
+    async doRound() {
+        console.log(this.isGameFinished());
+    }
 }
 
 module.exports = Match;

@@ -2,16 +2,7 @@ html, body {
     background-color: #FFFFFF;
     color: #212121;
 }
-.content {
-    border: 1px solid #CFD8DC;
-    border-radius: 5px;
-    height: 70vh;
-    padding: 40px 40px 40px 40px;
-}
 
-.content h1 {
-    border-bottom: 1px solid #CFD8DC;
-}
 /* Navbar */
 .navigationBar {
     margin-bottom: 20px;
@@ -61,6 +52,14 @@ html, body {
 .content {
     width: 80%;
     margin: auto;
+    border: 1px solid #CFD8DC;
+    border-radius: 5px;
+    height: 70vh;
+    padding: 40px 40px 40px 40px;
+}
+
+.content h1 {
+    border-bottom: 1px solid #CFD8DC;
 }
 
 .msg {

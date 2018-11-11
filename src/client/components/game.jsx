@@ -12,6 +12,7 @@ class Game extends React.Component {
             users: [],
             hasStarted: false,
             timer: 0,
+            round: null,
             question: null,
             answers: [],
             selectedAnswerId: 0,
@@ -25,6 +26,8 @@ class Game extends React.Component {
     }
 
     async componentDidMount() {
+
+        //First we get users already in the game-room, and open a socket connection
         await this.getUsers();
         this.socket = openSocket(window.location.origin);
         
@@ -33,8 +36,9 @@ class Game extends React.Component {
             username: this.props.user.username, 
             gameId: this.props.gameId
         };
-
+            
         this.socket.emit('game', payload);
+        
         this.socket.on('newUser', (user) => {
 
             this.setState(
@@ -48,8 +52,12 @@ class Game extends React.Component {
             )
         });
 
-        this.socket.on('starting', (msg) => {
+        this.socket.on('starting', () => {
             this.setState({hasStarted: true});
+        });
+
+        this.socket.on('newRound', (round) => {
+            this.setState({round: round});
         });
 
         this.socket.on('question', (question) => {
@@ -112,6 +120,12 @@ class Game extends React.Component {
 
         if(this.props.userCreatedGame && !this.state.hasStarted) {
             startGameBtn = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+        }
+
+        let round = <div></div>;
+
+        if(this.state.round !== null) {
+            round = <h3>Question {this.state.round.round} of {this.state.round.totalRounds}</h3>
         }
 
         let question = <div></div>;
@@ -225,6 +239,8 @@ class Game extends React.Component {
                 {html}
 
                 {startGameBtn}
+                
+                {round}
 
                 {question}
 

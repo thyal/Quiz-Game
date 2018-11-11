@@ -1,15 +1,5 @@
 const Games = require('../models/games');
 
-// class Match {
-//     constructor(gameId, players) {
-//         this.gameId = gameId;
-//         this.players = players;
-//     }
-
-
-// }
-
-
 async function getGame(gameId) {
     let game;
     try {
@@ -38,8 +28,25 @@ async function endGame(gameId) {
     return true;
 }
 
+async function provideQuestion() {
+
+    let numberOfQuestions = await Games.getTotalNumberOfQuestions();
+    let randomId = Math.floor(Math.random() * numberOfQuestions.total) + 1;
+    let question = await Games.getOneQuestion(randomId);
+    this.questionCounter++;
+    return question;
+}
+
+async function provideAnswers(question_id) {
+    let answers = await Games.getAnswers(question_id);
+
+    return answers;
+}
+
 module.exports = {
     getGame,
     startGame,
-    endGame
+    endGame,
+    provideQuestion,
+    provideAnswers
 }

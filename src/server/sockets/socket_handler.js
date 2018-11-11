@@ -1,6 +1,7 @@
 const socketIo = require('socket.io');
 const Tokens = require('./tokens');
 const Games = require('../models/games');
+const gameLogic = require('../game/gameLogic');
 const Match = require('../game/match');
 
 let io;
@@ -31,39 +32,51 @@ const start = (server) => {
         
         socket.on('startGame', async (gameId) => {
             
-            io.in(gameId).emit('starting', "game is starting");
+            io.in(gameId).emit('starting');
 
-            const match = new Match(gameId, "he", 10);
+            //Step one: start the game.
+            let game;
             try {
-                let question = await match.provideQuestion();
-                let answers = await match.provideAnswers(question.id);
-
-                io.in(gameId).emit('question', question);
-                
-                setTimeout(() => {
-                    io.in(gameId).emit('answers', answers);
-                }, 5000);
-                
-                socket.on('answered', (payload) => {
-                    console.log(payload);
-                });
-
-                setTimeout(() => {
-                    let correctAnswer;
-                    for(answer of answers) {
-                        if(answer.isCorrect) {
-                            correctAnswer = answer;
-                        }
-                    }
-                    io.in(gameId).emit('roundOver', correctAnswer);
-                    
-                }, 20000);
-
+                await gameLogic.startGame(gameId);
+                game = await gameLogic.getGame(gameId);
             } catch(error) {
                 io.in(gameId).emit('error', error);
             }
+            //Step two: start the round.
+            let numberOfQuestions = game.numberOfQuestions;
 
+            const timeoutPromise = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
             
+            for(let i = 1; i <= numberOfQuestions; i++) {
+                let answers = await questions(i);
+                await timeoutPromise(20000);
+                console.log(i);
+                emitAnswer(answers);
+                await timeoutPromise(5000);
+            }
+
+
+            async function questions(i) {
+                return new Promise(async (resolve, reject) => {
+                    let round = {round: i, totalRounds: numberOfQuestions};
+                    io.in(gameId).emit('newRound', round);
+                    let question = await gameLogic.provideQuestion();
+                    io.in(gameId).emit('question', question);
+                    let answers = await gameLogic.provideAnswers(question.id);
+                    io.in(gameId).emit('answers', answers);
+                    resolve(answers);
+                });
+            }
+
+            async function emitAnswer(answers) {
+                let correctAnswer;
+                for(answer of answers) {
+                    if(answer.isCorrect) {
+                        correctAnswer = answer;
+                    }
+                }
+                io.in(gameId).emit('roundOver', correctAnswer);
+            }
         });
     });
     
