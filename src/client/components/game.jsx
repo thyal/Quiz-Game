@@ -16,6 +16,7 @@ class Game extends React.Component {
             answers: [],
             selectedAnswerId: 0,
             correctAnswer: null,
+            selectedCorrect: false,
             clickable: true,
             roundOver: false
         }
@@ -63,6 +64,12 @@ class Game extends React.Component {
         });
 
         this.socket.on('roundOver', (status) => {
+
+            if(status.id === this.state.selectedAnswerId) {
+                this.setState({selectedCorrect: true});
+            } else {
+                this.setState({selectedCorrect: false});
+            }
             this.setState({roundOver: true, correctAnswer: status});
             clearInterval(this.timer);
         });
@@ -159,6 +166,39 @@ class Game extends React.Component {
             <div>
                 <h3>ROUND OVER</h3>
                 <p>The correct answer is: {this.state.correctAnswer.answer}</p>
+
+            </div>
+
+            answers = 
+            <div>
+                {this.state.answers.map((a) => {
+                    if(a.id === this.state.selectedAnswerId && this.state.selectedCorrect) {
+                        return <button 
+                        className="btn btn-submit"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    } else if(a.id === this.state.selectedAnswerId && !this.state.selectedCorrect) {
+                        return <button
+                        className="btn btn-error"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    } else if(a.id === this.state.correctAnswer.id) {
+                        return <button
+                        className="btn btn-correct"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    } else {
+                        return <button
+                        className="btn btn-unclickable"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    }
+                    }
+                )}
             </div>
         }
 
