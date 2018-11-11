@@ -80,11 +80,17 @@ const start = (server) => {
 
                 io.in(gameId).emit('roundOver', correctAnswer);
 
+                //Sending individual scores to users.
                 let users = await gameLogic.getAllUsers(gameId);
                 for(user of users) {
                     console.log(user);
                     io.to(user.socket_id).emit('totalScore', user.userScore);
                 }
+
+                //Sending leaderboard
+
+                io.in(gameId).emit('leaderboard', users);
+
                 //New timeout. need a few seconds after each round.
                 await timeout(15000);
                 

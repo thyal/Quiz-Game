@@ -22,7 +22,8 @@ class Game extends React.Component {
             correctAnswer: null,
             selectedCorrect: false,
             clickable: true,
-            roundOver: false
+            roundOver: false,
+            leaderboard: null
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
@@ -92,7 +93,12 @@ class Game extends React.Component {
 
         this.socket.on('totalScore', (totalScore) => {
             this.setState({totalScore: totalScore});
+        });
+
+        this.socket.on('leaderboard', (leaderboard) => {
+            this.setState({leaderboard: leaderboard});
         })
+
 
         this.socket.on('roundOver', (correctAnswer) => {
 
@@ -255,6 +261,18 @@ class Game extends React.Component {
             </div>
         }
 
+        let leaderboard = <div></div>;
+        if(this.state.leaderboard !== null) {
+            leaderboard = 
+            <div>
+            {this.state.leaderboard.map((u) => {
+                <p key={u.user_id}>{u.username} : {u.userScore}</p>
+            })
+            }
+            </div>
+
+        }
+
         let timer = <div><p>Time elapsed: {this.state.timer}s</p></div>
 
         return(
@@ -265,6 +283,8 @@ class Game extends React.Component {
                 {startGameBtn}
                 <h2>total score: {this.state.totalScore}</h2>
                 {round}
+
+                {leaderboard}
 
                 {question}
 
@@ -277,7 +297,7 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
