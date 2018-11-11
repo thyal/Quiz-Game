@@ -15,6 +15,7 @@ class Game extends React.Component {
             question: null,
             answers: [],
             selectedAnswerId: 0,
+            correctAnswer: null,
             clickable: true,
             roundOver: false
         }
@@ -62,9 +63,9 @@ class Game extends React.Component {
         });
 
         this.socket.on('roundOver', (status) => {
-            this.setState({roundOver: true});
+            this.setState({roundOver: true, correctAnswer: status});
             clearInterval(this.timer);
-        })
+        });
         
     }
 
@@ -81,7 +82,7 @@ class Game extends React.Component {
     }
 
     handleAnswer(id) {
-        console.log(id);
+   
         this.setState({clickable: false, selectedAnswerId: id});
         const payload = {user_id: this.props.user.id, answer_id: id, time: this.state.timer};
         this.socket.emit('answered', payload);
@@ -153,10 +154,11 @@ class Game extends React.Component {
             </div>
         }
 
-        if(this.state.roundOver) {
+        if(this.state.roundOver && this.state.correctAnswer !== null) {
             html = 
             <div>
                 <h3>ROUND OVER</h3>
+                <p>The correct answer is: {this.state.correctAnswer.answer}</p>
             </div>
         }
 

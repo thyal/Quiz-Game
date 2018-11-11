@@ -49,7 +49,14 @@ const start = (server) => {
                 });
 
                 setTimeout(() => {
-                    io.in(gameId).emit('roundOver')
+                    let correctAnswer;
+                    for(answer of answers) {
+                        if(answer.isCorrect) {
+                            correctAnswer = answer;
+                        }
+                    }
+                    io.in(gameId).emit('roundOver', correctAnswer);
+                    
                 }, 20000);
 
             } catch(error) {
