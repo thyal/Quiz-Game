@@ -160,7 +160,7 @@ class Game extends React.Component {
             </div>
         }
 
-        let timer = <div><p>{this.state.timer}</p></div>
+        let timer = <div><p>Time elapsed: {this.state.timer}s</p></div>
 
         return(
             <div>
