@@ -13,6 +13,7 @@ class Game extends React.Component {
             hasStarted: false,
             question: null,
             answers: [],
+            selectedAnswerId: 0,
             clickable: true,
             roundOver: false
         }
@@ -76,7 +77,7 @@ class Game extends React.Component {
 
     handleAnswer(id) {
         console.log(id);
-        this.setState({clickable: false});
+        this.setState({clickable: false, selectedAnswerId: id});
         this.socket.emit('answered', id);
     }
 
@@ -122,7 +123,31 @@ class Game extends React.Component {
                 className="btn btn-submit" 
                 onClick={_ => this.handleAnswer(a.id)} 
                 key={a.id}>
-                {a.answer}</button>)}
+                {a.answer}
+                </button>
+                )}
+            </div>
+        }
+
+        if(!this.state.clickable) {
+            answers = 
+            <div>
+                {this.state.answers.map((a) => {
+                    if(a.id === this.state.selectedAnswerId) {
+                        return <button 
+                        className="btn btn-selected-answer"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    } else {
+                        return <button
+                        className="btn btn-unclickable"
+                        key={a.id}>
+                        {a.answer}
+                        </button>
+                    }
+                    }
+                )}
             </div>
         }
 
