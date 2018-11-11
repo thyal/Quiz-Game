@@ -57,7 +57,17 @@ class Game extends React.Component {
         });
 
         this.socket.on('newRound', (round) => {
-            this.setState({round: round});
+            this.setState({
+                round: round,
+                question: null,
+                timer: 0,
+                answers: [],
+                selectedAnswerId: 0,
+                correctAnswer: null,
+                selectedCorrect: false,
+                clickable: true,
+                roundOver: false
+            });
         });
 
         this.socket.on('question', (question) => {
@@ -71,14 +81,14 @@ class Game extends React.Component {
             }), 1000);
         });
 
-        this.socket.on('roundOver', (status) => {
+        this.socket.on('roundOver', (correctAnswer) => {
 
-            if(status.id === this.state.selectedAnswerId) {
+            if(correctAnswer.id === this.state.selectedAnswerId) {
                 this.setState({selectedCorrect: true});
             } else {
                 this.setState({selectedCorrect: false});
             }
-            this.setState({roundOver: true, correctAnswer: status});
+            this.setState({roundOver: true, correctAnswer: correctAnswer});
             clearInterval(this.timer);
         });
         

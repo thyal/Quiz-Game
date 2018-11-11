@@ -2,7 +2,6 @@ const socketIo = require('socket.io');
 const Tokens = require('./tokens');
 const Games = require('../models/games');
 const gameLogic = require('../game/gameLogic');
-const Match = require('../game/match');
 
 let io;
 
@@ -68,13 +67,14 @@ const start = (server) => {
             
                 //Figuring out which answer is the correct one.
                 let correctAnswer = emitAnswer(answers);
+                console.log(correctAnswer);
                 io.in(gameId).emit('roundOver', correctAnswer);
 
                 //New timeout. need a few seconds after each round.
-                await timeout(5000);
+                await timeout(15000);
             }
 
-            async function emitAnswer(answers) {
+            function emitAnswer(answers) {
                 let correctAnswer;
                 for(answer of answers) {
                     if(answer.isCorrect) {
