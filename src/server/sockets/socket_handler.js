@@ -45,27 +45,33 @@ const start = (server) => {
             //Step two: start the round.
             let numberOfQuestions = game.numberOfQuestions;
 
-            const timeoutPromise = (timeout) => new Promise((resolve) => setTimeout(resolve, timeout));
+            //Helper function to set a timeout.
+            const timeout = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
             
+
+            //THE GAME LOOP
             for(let i = 1; i <= numberOfQuestions; i++) {
-                let answers = await questions(i);
-                await timeoutPromise(20000);
-                console.log(i);
-                emitAnswer(answers);
-                await timeoutPromise(5000);
-            }
+                //We tell all clients a new round is starting.
+                let round = {round: i, totalRounds: numberOfQuestions};
+                io.in(gameId).emit('newRound', round);
 
+                //We get a random question, and send it to the clients.
+                let question = await gameLogic.provideQuestion();
+                io.in(gameId).emit('question', question);
 
-            async function questions(i) {
-                return new Promise(async (resolve, reject) => {
-                    let round = {round: i, totalRounds: numberOfQuestions};
-                    io.in(gameId).emit('newRound', round);
-                    let question = await gameLogic.provideQuestion();
-                    io.in(gameId).emit('question', question);
-                    let answers = await gameLogic.provideAnswers(question.id);
-                    io.in(gameId).emit('answers', answers);
-                    resolve(answers);
-                });
+                //We get the answers to said question and send them to the clients.
+                let answers = await gameLogic.provideAnswers(question.id);
+                io.in(gameId).emit('answers', answers);
+
+                //Setting a timeout of 20 seconds. This is the time the players has to answer.
+                await timeout(20000);
+            
+                //Figuring out which answer is the correct one.
+                let correctAnswer = emitAnswer(answers);
+                io.in(gameId).emit('roundOver', correctAnswer);
+
+                //New timeout. need a few seconds after each round.
+                await timeout(5000);
             }
 
             async function emitAnswer(answers) {
@@ -75,7 +81,7 @@ const start = (server) => {
                         correctAnswer = answer;
                     }
                 }
-                io.in(gameId).emit('roundOver', correctAnswer);
+                return correctAnswer;
             }
         });
     });
