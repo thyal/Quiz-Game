@@ -44,8 +44,8 @@ const start = (server) => {
                     io.in(gameId).emit('answers', answers);
                 }, 5000);
                 
-                socket.on('answered', (id) => {
-                    console.log(socket + " answered " + id);
+                socket.on('answered', (payload) => {
+                    console.log(payload);
                 });
 
                 setTimeout(() => {

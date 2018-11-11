@@ -11,6 +11,7 @@ class Game extends React.Component {
         this.state = {
             users: [],
             hasStarted: false,
+            timer: 0,
             question: null,
             answers: [],
             selectedAnswerId: 0,
@@ -55,10 +56,14 @@ class Game extends React.Component {
 
         this.socket.on('answers', (answers) => {
             this.setState({answers: answers});
+            this.timer = setInterval(() => this.setState({
+                timer: this.state.timer + 1
+            }), 1000);
         });
 
         this.socket.on('roundOver', (status) => {
             this.setState({roundOver: true});
+            clearInterval(this.timer);
         })
         
     }
@@ -78,7 +83,8 @@ class Game extends React.Component {
     handleAnswer(id) {
         console.log(id);
         this.setState({clickable: false, selectedAnswerId: id});
-        this.socket.emit('answered', id);
+        const payload = {user_id: this.props.user.id, answer_id: id, time: this.state.timer};
+        this.socket.emit('answered', payload);
     }
 
     render() {
@@ -135,7 +141,7 @@ class Game extends React.Component {
                 {this.state.answers.map((a) => {
                     if(a.id === this.state.selectedAnswerId) {
                         return <button 
-                        className="btn btn-selected-answer"
+                        className="btn btn-selected"
                         key={a.id}>
                         {a.answer}
                         </button>
@@ -158,6 +164,8 @@ class Game extends React.Component {
             </div>
         }
 
+        let timer = <div><p>{this.state.timer}</p></div>
+
         return(
             <div>
                 <h3>GAME</h3>
@@ -168,6 +176,8 @@ class Game extends React.Component {
                 {question}
 
                 {answers}
+
+                {timer}
             </div>
         )
     }
