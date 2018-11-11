@@ -28,6 +28,10 @@ async function endGame(gameId) {
     return true;
 }
 
+async function getTotalNumberOfPlayersInGame(gameId) {
+    return await Games.getNumberOfPlayersInGame(gameId);
+}
+
 async function provideQuestion() {
 
     let numberOfQuestions = await Games.getTotalNumberOfQuestions();
@@ -38,15 +42,45 @@ async function provideQuestion() {
 }
 
 async function provideAnswers(question_id) {
-    let answers = await Games.getAnswers(question_id);
+    return await Games.getAnswers(question_id);
+}
 
-    return answers;
+async function checkAnswerAndCalculateScore(question_id, answer_id, time) {
+    let answers = await Games.getAnswers(question_id);
+    let points = 0;
+    let maxTime = 20;
+
+    for(answer of answers) {
+        if(answer.isCorrect && answer_id === answer.id) {
+            points += 10;
+            let timeScore = maxTime - time;
+            points += timeScore
+        }
+    }
+    return points;
+}
+
+async function updateUserScore(userId, gameId, score) {
+    try {
+        await Games.updateUserScore(userId, gameId, score);
+    } catch(error) {
+        return false;
+    }
+    return true;
+}
+
+async function getUserScore(userId, gameId) {
+    return await Games.getUserScore(userId, gameId);
 }
 
 module.exports = {
     getGame,
     startGame,
     endGame,
+    getTotalNumberOfPlayersInGame,
     provideQuestion,
-    provideAnswers
+    provideAnswers,
+    updateUserScore,
+    getUserScore,
+    checkAnswerAndCalculateScore
 }

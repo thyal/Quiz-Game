@@ -18,6 +18,7 @@ const start = (server) => {
             
             if(checkUser !== payload.user_id) {
                 socket.emit("error", "Invalid token");
+                return;
             }
 
             //The user joins a room (a game). So we have an unique room for each game. 
@@ -66,17 +67,28 @@ const start = (server) => {
                 //We get the answers to said question and send them to the clients.
                 let answers = await gameLogic.provideAnswers(question.id);
                 io.in(gameId).emit('answers', answers);
-
+                
+                socket.on('answered', async (payload) => {
+                    //console.log(payload.user_id + " answered " + payload.answer_id + " on " + payload.time);
+                    let score = await gameLogic.checkAnswerAndCalculateScore(question.id, payload.answer_id, payload.time);
+                    console.log(payload.user_id + " scored " + score);
+                });
+                
                 //Setting a timeout of 20 seconds. This is the time the players has to answer.
                 await timeout(20000);
-            
+
                 //Figuring out which answer is the correct one.
                 let correctAnswer = emitAnswer(answers);
                 console.log(correctAnswer);
+
+
+
                 io.in(gameId).emit('roundOver', correctAnswer);
 
                 //New timeout. need a few seconds after each round.
                 await timeout(15000);
+                
+                //TODO: Implement points calculation
             }
 
             function emitAnswer(answers) {

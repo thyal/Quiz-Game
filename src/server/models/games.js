@@ -147,6 +147,47 @@ function getAnswers(question_id) {
     });
 }
 
+function getNumberOfPlayersInGame(game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT COUNT(user_id) FROM userScores WHERE game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    });
+}
+
+function updateUserScore(user_id, game_id, score) {
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE userScores SET userScore = userScore + ${score} 
+        WHERE user_id = ${user_id} AND game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        });
+    });
+}
+
+function getUserScore(user_id, game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT userScore FROM userScores
+        WHERE user_id = ${user_id} AND game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    });
+}
+
 module.exports = {
     find,
     createGame,
@@ -158,5 +199,8 @@ module.exports = {
     endGame,
     getTotalNumberOfQuestions,
     getOneQuestion,
-    getAnswers
+    getAnswers,
+    getNumberOfPlayersInGame,
+    updateUserScore,
+    getUserScore
 }
