@@ -14,7 +14,12 @@ const start = (server) => {
         
         //We expect each socket to send the gameId of the game they want to join when they connect.
         socket.on('game', async (payload) => {
+            const checkUser = Tokens.consumeToken(payload.token);
             
+            if(checkUser !== payload.user_id) {
+                socket.emit("error", "Invalid token");
+            }
+
             //The user joins a room (a game). So we have an unique room for each game. 
             socket.join(payload.gameId);
 
@@ -83,6 +88,10 @@ const start = (server) => {
                 }
                 return correctAnswer;
             }
+        });
+
+        socket.on('disconnect', () => {
+            //Treat disconnect
         });
     });
     

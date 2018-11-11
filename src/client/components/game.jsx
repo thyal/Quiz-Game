@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
 import { gameActions } from "../actions/gameActions";
+import { userActions } from "../actions/userActions";
 
 class Game extends React.Component {
     constructor(props) {
@@ -29,14 +30,16 @@ class Game extends React.Component {
 
         //First we get users already in the game-room, and open a socket connection
         await this.getUsers();
+
         this.socket = openSocket(window.location.origin);
-        
+
         const payload = {
-            user_id: this.props.user.id, 
+            user_id: this.props.user.id,
+            token: this.props.token,
             username: this.props.user.username, 
             gameId: this.props.gameId
         };
-            
+
         this.socket.emit('game', payload);
         
         this.socket.on('newUser', (user) => {
@@ -263,10 +266,11 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
+    console.log(state);
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
+        token: state.userReducer.token,
         inGame: state.gameReducer.inGame,
         userCreatedGame: state.gameReducer.userCreatedGame,
         gameId: state.gameReducer.gameId,

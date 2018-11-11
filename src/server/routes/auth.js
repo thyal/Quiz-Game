@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const Users = require('../models/users');
+const Tokens = require('../sockets/tokens');
 
 const router = express.Router(); 
 
@@ -47,6 +48,18 @@ router.post('/signup', async (req, res) => {
             });
         });
     }
+});
+
+router.post('/token', function (req, res) {
+
+    if(! req.user){
+        res.status(401).send();
+        return;
+    }
+
+    const token = Tokens.createToken(req.user.id);
+
+    res.status(201).json(token);
 });
 
 router.post('/logout', function(req, res){

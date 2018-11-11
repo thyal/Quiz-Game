@@ -22,6 +22,16 @@ const userReducer = (state = {}, action) => {
                 loggedIn: false,
                 error: action.error
             };
+        case userConstants.GET_TOKEN_SUCCESS:
+            return {
+                ...state,
+                token: action.token
+            };
+        case userConstants.GET_TOKEN_FAILURE:
+            return {
+                ...state,
+                error: action.error
+            }
         case userConstants.LOGOUT_SUCCESS:
             return {};
         default:

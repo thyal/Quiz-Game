@@ -33,6 +33,15 @@ function getUser() {
     return fetch(url);
 }
 
+function getToken() {
+    const url = "api/auth/token";
+    const options = {
+        method: 'POST'
+    };
+
+    return fetch(url, options);
+}
+
 function logout() {
     const url = "api/auth/logout";
     
@@ -43,5 +52,6 @@ export const userService = {
     login,
     signup,
     getUser,
+    getToken,
     logout
 }

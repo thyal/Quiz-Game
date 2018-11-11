@@ -31,6 +31,7 @@ class Login extends React.Component {
         const { dispatch } = this.props;
         if(username && password) {
             await dispatch(userActions.login(username, password, this.props.history));
+            await dispatch(userActions.getToken());
             if(this.props.error !== undefined) {
                 this.setState({error: this.props.error});
             }          
