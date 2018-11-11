@@ -52,16 +52,29 @@ function checkIfGameIsJoinable(gameId) {
     }); 
 }
 
-function joinGame(user_id, game_id, isCreator) {
+function joinGame(user_id, game_id, isCreator, socket_id) {
     return new Promise((resolve, reject) => {
-        let sql = `INSERT INTO userScores(user_id, game_id, userScore, isCreator)
-        VALUES(${user_id}, ${game_id}, 0, ${isCreator})`;
+        let sql = `INSERT INTO userScores(user_id, game_id, userScore, isCreator, socket_id)
+        VALUES(${user_id}, ${game_id}, 0, ${isCreator}, '${socket_id}')`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
             }
             resolve(result);
+        });
+    });
+}
+
+function getSocketIdForUser(user_id, game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT socket_id FROM userScores WHERE user_id = ${user_id} AND game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
         });
     });
 }
@@ -194,6 +207,7 @@ module.exports = {
     getActiveGames,
     checkIfGameIsJoinable,
     joinGame,
+    getSocketIdForUser,
     getUsersInGame,
     startGame,
     endGame,

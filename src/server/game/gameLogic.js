@@ -28,6 +28,19 @@ async function endGame(gameId) {
     return true;
 }
 
+async function joinGame(userId, gameId, isCreator, socketId) {
+    try {
+        await Games.joinGame(userId, gameId, isCreator, socketId)
+    } catch(error) {
+        return false;
+    }
+    return true;
+}
+
+async function getSocketIdForUser(userId, gameId) {
+    return await Games.getSocketIdForUser(userId, gameId);
+}
+
 async function getTotalNumberOfPlayersInGame(gameId) {
     return await Games.getNumberOfPlayersInGame(gameId);
 }
@@ -73,14 +86,21 @@ async function getUserScore(userId, gameId) {
     return await Games.getUserScore(userId, gameId);
 }
 
+async function getAllUsers(gameId) {
+    return await Games.getUsersInGame(gameId);
+}
+
 module.exports = {
     getGame,
     startGame,
+    joinGame,
+    getSocketIdForUser,
     endGame,
     getTotalNumberOfPlayersInGame,
     provideQuestion,
     provideAnswers,
     updateUserScore,
     getUserScore,
-    checkAnswerAndCalculateScore
+    checkAnswerAndCalculateScore,
+    getAllUsers
 }

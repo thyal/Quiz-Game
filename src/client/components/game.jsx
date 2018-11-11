@@ -12,6 +12,8 @@ class Game extends React.Component {
         this.state = {
             users: [],
             hasStarted: false,
+            roundScore: 0,
+            totalScore: 0,
             timer: 0,
             round: null,
             question: null,
@@ -83,6 +85,14 @@ class Game extends React.Component {
                 timer: this.state.timer + 1
             }), 1000);
         });
+
+        this.socket.on('score', (score) => {
+            this.setState({roundScore: score});
+        });
+
+        this.socket.on('totalScore', (totalScore) => {
+            this.setState({totalScore: totalScore});
+        })
 
         this.socket.on('roundOver', (correctAnswer) => {
 
@@ -195,6 +205,7 @@ class Game extends React.Component {
                 result = 
                 <div className="msg msg-success">
                     <p>Congrats! You had the right answer!</p>
+                    <p>+ {this.state.roundScore}</p>
                 </div>
             } else {
                 result = 
@@ -252,7 +263,7 @@ class Game extends React.Component {
                 {html}
 
                 {startGameBtn}
-                
+                <h2>total score: {this.state.totalScore}</h2>
                 {round}
 
                 {question}

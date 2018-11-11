@@ -1,6 +1,5 @@
 const socketIo = require('socket.io');
 const Tokens = require('./tokens');
-const Games = require('../models/games');
 const gameLogic = require('../game/gameLogic');
 
 let io;
@@ -20,14 +19,13 @@ const start = (server) => {
                 socket.emit("error", "Invalid token");
                 return;
             }
-
             //The user joins a room (a game). So we have an unique room for each game. 
             socket.join(payload.gameId);
 
             //We also save each user to a table consisting of the game id, user id, and scores.
             //We use this table both to keep track of which players is in which game, and their scores.
             try {
-                await Games.joinGame(payload.user_id, payload.gameId, 0);
+                await gameLogic.joinGame(payload.user_id, payload.gameId, 0, socket.id);
             } catch(error) {
                 socket.to(payload.gameId).emit('error', 'Something went wrong');
             }
@@ -69,9 +67,9 @@ const start = (server) => {
                 io.in(gameId).emit('answers', answers);
                 
                 socket.on('answered', async (payload) => {
-                    //console.log(payload.user_id + " answered " + payload.answer_id + " on " + payload.time);
                     let score = await gameLogic.checkAnswerAndCalculateScore(question.id, payload.answer_id, payload.time);
-                    console.log(payload.user_id + " scored " + score);
+                    socket.emit("score", score);
+                    await gameLogic.updateUserScore(payload.user_id, gameId, score);
                 });
                 
                 //Setting a timeout of 20 seconds. This is the time the players has to answer.
@@ -79,12 +77,14 @@ const start = (server) => {
 
                 //Figuring out which answer is the correct one.
                 let correctAnswer = emitAnswer(answers);
-                console.log(correctAnswer);
-
-
 
                 io.in(gameId).emit('roundOver', correctAnswer);
 
+                let users = await gameLogic.getAllUsers(gameId);
+                for(user of users) {
+                    console.log(user);
+                    io.to(user.socket_id).emit('totalScore', user.userScore);
+                }
                 //New timeout. need a few seconds after each round.
                 await timeout(15000);
                 
