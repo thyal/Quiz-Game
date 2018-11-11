@@ -122,7 +122,7 @@ class Game extends React.Component {
             <div>
                 {this.state.answers.map((a) => 
                 <button 
-                className="btn btn-submit" 
+                className="btn btn-answers" 
                 onClick={_ => this.handleAnswer(a.id)} 
                 key={a.id}>
                 {a.answer}

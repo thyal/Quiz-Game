@@ -13,10 +13,10 @@ class Home extends React.Component {
         if(this.props.user === undefined) {
             html = <div>
                 <p>You have to log in to play</p>
-                <button className="btn"><Link to="/login">Login</Link></button>
+                <Link to="/login"><button className="btn btn-submit">Login</button></Link>
             </div>
         } else {
-            html = <button className="btn btn-submit"><Link to="/gameLobby">Start a game</Link></button>
+            html = <Link to="/gameLobby"><button className="btn btn-submit">Start a game</button></Link>
         }
 
         return(
