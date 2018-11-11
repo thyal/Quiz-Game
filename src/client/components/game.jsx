@@ -10,7 +10,9 @@ class Game extends React.Component {
 
         this.state = {
             users: [],
-            hasStarted: false
+            hasStarted: false,
+            question: null,
+            answers: []
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -41,7 +43,12 @@ class Game extends React.Component {
 
         this.socket.on('starting', (msg) => {
             this.setState({hasStarted: true});
+        });
+
+        this.socket.on('question', (question) => {
+            this.setState({question: question});
         })
+        
     }
 
     async getUsers() {
@@ -79,12 +86,24 @@ class Game extends React.Component {
             html = <h2>PLAYING</h2>
         }
 
+        let question = <div></div>;
+
+        if(this.state.question !== null) {
+            question = 
+            <div>
+                <h2>Category: {this.state.question.category_name}</h2>
+                <h3>{this.state.question.question}</h3>
+            </div>
+        }
+
         return(
             <div>
                 <h3>GAME</h3>
                 {html}
 
                 {startGameBtn}
+
+                {question}
             </div>
         )
     }
