@@ -65,7 +65,6 @@ passport.deserializeUser(async (userId, done) => {
     }
 });
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 //routes

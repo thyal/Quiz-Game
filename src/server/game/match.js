@@ -15,7 +15,7 @@ class Match {
         // }
 
         let numberOfQuestions = await Games.getTotalNumberOfQuestions();
-        let randomId = Math.floor(Math.random() * numberOfQuestions.total);
+        let randomId = Math.floor(Math.random() * numberOfQuestions.total) + 1;
         let question = await Games.getOneQuestion(randomId);
         this.questionCounter++;
         return question;

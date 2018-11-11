@@ -42,7 +42,15 @@ const start = (server) => {
                 
                 setTimeout(() => {
                     io.in(gameId).emit('answers', answers);
-                }, 10000);
+                }, 5000);
+                
+                socket.on('answered', (id) => {
+                    console.log(socket + " answered " + id);
+                });
+
+                setTimeout(() => {
+                    io.in(gameId).emit('roundOver')
+                }, 20000);
 
             } catch(error) {
                 io.in(gameId).emit('error', error);

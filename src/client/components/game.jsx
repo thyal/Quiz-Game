@@ -12,9 +12,12 @@ class Game extends React.Component {
             users: [],
             hasStarted: false,
             question: null,
-            answers: []
+            answers: [],
+            clickable: true,
+            roundOver: false
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleAnswer = this.handleAnswer.bind(this);
     }
 
     async componentDidMount() {
@@ -51,6 +54,10 @@ class Game extends React.Component {
 
         this.socket.on('answers', (answers) => {
             this.setState({answers: answers});
+        });
+
+        this.socket.on('roundOver', (status) => {
+            this.setState({roundOver: true});
         })
         
     }
@@ -65,6 +72,12 @@ class Game extends React.Component {
     handleClick() {
 
         this.socket.emit('startGame', this.props.gameId);
+    }
+
+    handleAnswer(id) {
+        console.log(id);
+        this.setState({clickable: false});
+        this.socket.emit('answered', id);
     }
 
     render() {
@@ -92,7 +105,7 @@ class Game extends React.Component {
 
         let question = <div></div>;
 
-        if(this.state.question !== null) {
+        if(this.state.question !== null && !this.state.roundOver) {
             question = 
             <div>
                 <h2>Category: {this.state.question.category_name}</h2>
@@ -101,10 +114,22 @@ class Game extends React.Component {
         }
 
         let answers = <div></div>;
-        if(this.state.answers.length > 0) {
+        if(this.state.answers.length > 0 && !this.state.roundOver) {
             answers = 
             <div>
-                {this.state.answers.map((a) => <button className="btn" key={a.id}>{a.answer}</button>)}
+                {this.state.answers.map((a) => 
+                <button 
+                className="btn btn-submit" 
+                onClick={_ => this.handleAnswer(a.id)} 
+                key={a.id}>
+                {a.answer}</button>)}
+            </div>
+        }
+
+        if(this.state.roundOver) {
+            html = 
+            <div>
+                <h3>ROUND OVER</h3>
             </div>
         }
 
