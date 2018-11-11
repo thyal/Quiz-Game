@@ -34,8 +34,16 @@ const start = (server) => {
             io.in(gameId).emit('starting', "game is starting");
 
             const match = new Match(gameId, "he", 10);
+            try {
+                let question = await match.provideQuestion();
+                let answers = await match.provideAnswers(question.id);
+                console.log(question);
+                console.log(answers);
+                io.in(gameId).emit('question', question);
+            } catch(error) {
+                io.in(gameId).emit('error', error);
+            }
 
-            let question = await match.provideQuestion();
             
         });
     });

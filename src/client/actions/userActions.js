@@ -5,12 +5,12 @@ function login(username, password, history) {
     return async (dispatch) => {
 
         let response = await userService.login(username, password);
-        let user = await response.json();
 
         if(response.status ===  401) {
             const error = "Wrong credentials";
             dispatch(failure(error));
         } else {
+            let user = await response.json();
             dispatch(success(user));
             history.push("/");
         }         
