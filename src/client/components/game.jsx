@@ -161,12 +161,27 @@ class Game extends React.Component {
             </div>
         }
 
+        /* RESULT */
+        let result = <div></div>;
+        if(this.state.correctAnswer !== null) {
+            if(this.state.correctAnswer.id === this.state.selectedAnswerId) {
+                result = 
+                <div className="msg-success">
+                    <p>Congrats! You had the right answer!</p>
+                </div>
+            } else {
+                result = 
+                <div className="msg-error">
+                    <p>Sorry! Wrong answer</p>
+                </div>
+            }
+        }
         if(this.state.roundOver && this.state.correctAnswer !== null) {
             html = 
             <div>
                 <h3>ROUND OVER</h3>
                 <p>The correct answer is: {this.state.correctAnswer.answer}</p>
-
+                {result}
             </div>
 
             answers = 

@@ -73,6 +73,24 @@ html, body {
     margin-bottom: 15px;
 }
 
+.msg-success {
+    width: 30%;
+    padding: 10px;
+    background-color: #4CAF50;
+    opacity: 0.83;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.msg-error {
+    width: 30%;
+    padding: 10px;
+    background-color: #f44336;
+    opacity: 0.83;
+    color: white;
+    margin-bottom: 15px;
+}
+
 .btn {
     border: none;
     color: white;
