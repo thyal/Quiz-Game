@@ -106,10 +106,6 @@ class Game extends React.Component {
             startGameBtn = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
         }
 
-        if(this.state.hasStarted) {
-            html = <h2>PLAYING</h2>
-        }
-
         let question = <div></div>;
 
         if(this.state.question !== null && !this.state.roundOver) {

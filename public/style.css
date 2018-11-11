@@ -63,6 +63,7 @@ html, body {
     border: none;
     color: white;
     padding: 15px 32px;
+    margin: 20px 20px 20px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -82,8 +83,8 @@ html, body {
     border-radius: 4px;
 }
 
-.btn-selected {
-    background-color: #f44336;
+.btn-selected {
+    background-color: #F78764;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -100,7 +101,7 @@ html, body {
     border-radius: 4px;
 }
 
-.btn-selected-answer:hover, .btn-unclickable:hover {
+.btn-selected:hover, .btn-unclickable:hover {
     cursor: default;
 }
 
