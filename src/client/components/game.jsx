@@ -130,7 +130,7 @@ class Game extends React.Component {
             <div>
                 {this.state.answers.map((a) => 
                 <button 
-                className="btn btn-answers" 
+                className="quiz-btn quiz-answers" 
                 onClick={_ => this.handleAnswer(a.id)} 
                 key={a.id}>
                 {a.answer}
@@ -145,13 +145,13 @@ class Game extends React.Component {
                 {this.state.answers.map((a) => {
                     if(a.id === this.state.selectedAnswerId) {
                         return <button 
-                        className="btn btn-selected"
+                        className="quiz-btn quiz-selected"
                         key={a.id}>
                         {a.answer}
                         </button>
                     } else {
                         return <button
-                        className="btn btn-unclickable"
+                        className="quiz-btn quiz-unclickable"
                         key={a.id}>
                         {a.answer}
                         </button>
@@ -166,12 +166,12 @@ class Game extends React.Component {
         if(this.state.correctAnswer !== null) {
             if(this.state.correctAnswer.id === this.state.selectedAnswerId) {
                 result = 
-                <div className="msg-success">
+                <div className="msg msg-success">
                     <p>Congrats! You had the right answer!</p>
                 </div>
             } else {
                 result = 
-                <div className="msg-error">
+                <div className="msg msg-error">
                     <p>Sorry! Wrong answer</p>
                 </div>
             }
@@ -189,25 +189,25 @@ class Game extends React.Component {
                 {this.state.answers.map((a) => {
                     if(a.id === this.state.selectedAnswerId && this.state.selectedCorrect) {
                         return <button 
-                        className="btn btn-submit"
+                        className="quiz-btn quiz-correct"
                         key={a.id}>
                         {a.answer}
                         </button>
                     } else if(a.id === this.state.selectedAnswerId && !this.state.selectedCorrect) {
                         return <button
-                        className="btn btn-error"
+                        className="quiz-btn quiz-wrong"
                         key={a.id}>
                         {a.answer}
                         </button>
                     } else if(a.id === this.state.correctAnswer.id) {
                         return <button
-                        className="btn btn-correct"
+                        className="quiz-btn quiz-correct"
                         key={a.id}>
                         {a.answer}
                         </button>
                     } else {
                         return <button
-                        className="btn btn-unclickable"
+                        className="quiz-btn quiz-unclickable"
                         key={a.id}>
                         {a.answer}
                         </button>

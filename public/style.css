@@ -63,39 +63,28 @@ html, body {
     margin: auto;
 }
 
-.error-msg {
+.msg {
     width: 30%;
-    font-size: 1.2em;
-    padding: 20px;
-    background-color: #f44336;
-    opacity: 0.83;
+    padding: 10px;
     color: white;
     margin-bottom: 15px;
 }
 
 .msg-success {
-    width: 30%;
-    padding: 10px;
     background-color: #4CAF50;
     opacity: 0.83;
-    color: white;
-    margin-bottom: 15px;
 }
 
 .msg-error {
-    width: 30%;
-    padding: 10px;
     background-color: #f44336;
     opacity: 0.83;
-    color: white;
-    margin-bottom: 15px;
 }
 
 .btn {
     border: none;
     color: white;
     padding: 15px 32px;
-    margin: 20px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -110,58 +99,45 @@ html, body {
     background-color: #4CAF50;
     color: white;
     padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
     border: none;
     border-radius: 4px;
 }
 
-.btn-answers {
+/* Quiz buttons */
+
+.quiz-btn {
+    color: white;
+    padding: 21px 36px;
+    margin: 0 30px 30px 30px;
+    border: none;
+    border-radius: 4px;
+}
+
+.quiz-answers {
     background-color: #455A64;
-    color: white;
-    padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
-    border: none;
-    border-radius: 4px;
 }
 
-.btn-selected {
+.quiz-selected {
     background-color: #607D8B;
-    border: 1px solid #212121;
-    color: white;
-    padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
-    border: none;
-    border-radius: 4px;
 }
 
-.btn-unclickable {
+.quiz-unclickable {
     background-color: #CFD8DC;
     color: black;
-    padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
-    border: none;
-    border-radius: 4px;
 }
 
-.btn-correct {
-    background: rgba(76, 175, 80, 0.7);
-    color: black;
-    padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
-    border: none;
-    border-radius: 4px;
+.quiz-correct {
+    background-color: #4CAF50;
+    opacity: 0.83;
 }
 
-.btn-error {
-    background-color: #FF5722;
-    color: white;
-    padding: 21px 36px;
-    margin: 30px 30px 30px 30px;
-    border: none;
-    border-radius: 4px;
+.quiz-wrong {
+    background-color: #f44336;
+    opacity: 0.83;
 }
 
-.btn-selected:hover, .btn-unclickable:hover, .btn-correct:hover, .btn-error:hover {
+
+.quiz-selected:hover, .quiz-unclickable:hover, .quiz-correct:hover, .btn-wrong:hover {
     cursor: default;
 }
 

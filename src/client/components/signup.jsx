@@ -98,7 +98,7 @@ class Signup extends React.Component {
 
         let error = <div></div>;
         if(this.state.error !== null && this.state.error !== undefined) {
-            error = <div className="error-msg"><p>{this.state.error}</p></div>;
+            error = <div className="msg msg-error"><p>{this.state.error}</p></div>;
         }
 
         return(
