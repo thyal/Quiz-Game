@@ -47,6 +47,10 @@ class Game extends React.Component {
 
         this.socket.on('question', (question) => {
             this.setState({question: question});
+        });
+
+        this.socket.on('answers', (answers) => {
+            this.setState({answers: answers});
         })
         
     }
@@ -96,6 +100,14 @@ class Game extends React.Component {
             </div>
         }
 
+        let answers = <div></div>;
+        if(this.state.answers.length > 0) {
+            answers = 
+            <div>
+                {this.state.answers.map((a) => <button className="btn" key={a.id}>{a.answer}</button>)}
+            </div>
+        }
+
         return(
             <div>
                 <h3>GAME</h3>
@@ -104,6 +116,8 @@ class Game extends React.Component {
                 {startGameBtn}
 
                 {question}
+
+                {answers}
             </div>
         )
     }

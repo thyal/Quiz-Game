@@ -37,9 +37,13 @@ const start = (server) => {
             try {
                 let question = await match.provideQuestion();
                 let answers = await match.provideAnswers(question.id);
-                console.log(question);
-                console.log(answers);
+
                 io.in(gameId).emit('question', question);
+                
+                setTimeout(() => {
+                    io.in(gameId).emit('answers', answers);
+                }, 10000);
+
             } catch(error) {
                 io.in(gameId).emit('error', error);
             }
