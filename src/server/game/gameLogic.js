@@ -19,9 +19,9 @@ async function startGame(gameId) {
     return true;
 }
 
-async function endGame(gameId) {
+async function endGame(gameId, winnerId) {
     try {
-        await Games.endGame(gameId);
+        await Games.endGame(gameId, winnerId);
     } catch(error) {
         return false;
     }
