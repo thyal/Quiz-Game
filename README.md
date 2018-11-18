@@ -6,6 +6,7 @@
 * [How to run](#how-to-run)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+* [The solution](#the-solution)
 * [Technologies used](#technologies-used)
 * [Structure](#structure)
   * [Back-end](#back-end)
@@ -39,6 +40,8 @@ This will initialize the database and create tables etc. **It is very important 
 
 Now that all dependencies are installed, and the database is up and running, you can run the NPM command `npm run dev` to actually run the project. The homepage should now be avaliable at http://localhost:8080
 
+## The solution
+The solution is a quiz game, loosely based on Kahoot. You need a profile to play. This can be made from the signup page. I made the choice to have the posibility to have multiple games run at once, and the posibility to join which game you want (as long as it is active, and has not started.) This makes it possible for players to share a gameId with eachother and to join that same game. This functionality is based on Kahoot, and to be honest it is not very useful unless you have alot of players online at the same time. Either way as it is now, its also easy to just join the last created game. When the player that created the game actually starts it, all players will get the first question (picked at random), and the possible answers. The players then have 20 seconds to give an answer. After this time, the right answer will be shown, and players get points if they had the right one, and they get points based on how fast they answer. If a player has the wrong answer, or doesn't answer at all, they get 0 points for that round. This repeats itself until the game is over. (The player who created the game can select how many questions there will be). At the end of the game a winner will be announced, and the leaderboard will get updated. 
 
 ## Technologies used
 The technologies used in this project consist of nodejs with express running the back-end,

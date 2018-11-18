@@ -3,8 +3,7 @@ const crypto = require("crypto");
 /*
     This file is copied from the repo of this subject. The flow with tokens are heavily inspired
     of the les11 folder in said repo. That beeing said, it clearly states in the exam document
-    that this is allowed, and there are not too many ways to do tokens, atleats when not 
-    using JWT etc. (The lecturer has adviced against this using JWT)
+    that this is allowed, and there are not too many ways to do tokens.
 */
 
 

@@ -21,9 +21,11 @@ class Game extends React.Component {
             correctAnswer: null,
             selectedCorrect: false,
             clickable: true,
+            placement: 1,
             roundOver: false,
             leaderboard: null,
-            gameOver: false
+            gameOver: false,
+            winner: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
@@ -92,7 +94,7 @@ class Game extends React.Component {
         });
 
         this.socket.on('totalScore', (totalScore) => {
-            this.setState({totalScore: totalScore});
+            this.setState({totalScore: totalScore.score, placement: totalScore.placement});
         });
 
         this.socket.on('leaderboard', (leaderboard) => {
@@ -113,7 +115,11 @@ class Game extends React.Component {
 
         this.socket.on('gameOver', (leaderboard) => {
             this.setState({gameOver: true});
-        })
+        });
+
+        this.socket.on('winner', () => {
+            this.setState({winner: true});
+        });
         
     }
 
@@ -132,7 +138,14 @@ class Game extends React.Component {
     handleAnswer(id) {
    
         this.setState({clickable: false, selectedAnswerId: id});
-        const payload = {user_id: this.props.user.id, answer_id: id, time: this.state.timer};
+        
+        const payload = {
+            gameId: this.props.gameId,
+            user_id: this.props.user.id, 
+            question: this.state.question.id,
+            answer_id: id, 
+            time: this.state.timer
+        };
         this.socket.emit('answered', payload);
     }
 
@@ -267,6 +280,7 @@ class Game extends React.Component {
 
         let leaderboard = <div></div>;
         if(this.state.leaderboard !== null) {
+            console.log(this.state.leaderboard);
             leaderboard = 
             <div>
             {this.state.leaderboard.map((u) => {
@@ -281,7 +295,12 @@ class Game extends React.Component {
 
         let gameOver = <div></div>;
         if(this.state.gameOver) {
-            gameOver = <div><p>GAME OVER</p></div>
+            if(this.state.winner) {
+                gameOver = <div><h2>YOU WON</h2></div>
+            } else {
+                gameOver = <div><p>Sorry, you didnt win</p></div>
+            }
+            
         }
 
         return(
@@ -290,7 +309,7 @@ class Game extends React.Component {
                 {html}
 
                 {startGameBtn}
-                <h2>total score: {this.state.totalScore}</h2>
+                <h2>total score: {this.state.totalScore} you are in {this.state.placement}. place!</h2>
                 {round}
 
                 {leaderboard}
