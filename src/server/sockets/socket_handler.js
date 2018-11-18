@@ -94,8 +94,16 @@ const start = (server) => {
                 //New timeout. need a few seconds after each round.
                 await timeout(15000);
                 
-                //TODO: Implement points calculation
             }
+
+            //Get winner of the game
+            let users = await gameLogic.getAllUsers(gameId);
+            
+            //The first user will always be the winner. This is because we order by user score 
+            //when we get the users from the database.
+            let winner = users[0];
+            
+            io.in(gameId).emit('gameOver', winner);
 
             function emitAnswer(answers) {
                 let correctAnswer;

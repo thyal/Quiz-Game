@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
 import { gameActions } from "../actions/gameActions";
-import { userActions } from "../actions/userActions";
 
 class Game extends React.Component {
     constructor(props) {
@@ -23,7 +22,8 @@ class Game extends React.Component {
             selectedCorrect: false,
             clickable: true,
             roundOver: false,
-            leaderboard: null
+            leaderboard: null,
+            gameOver: false
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
@@ -110,6 +110,10 @@ class Game extends React.Component {
             this.setState({roundOver: true, correctAnswer: correctAnswer});
             clearInterval(this.timer);
         });
+
+        this.socket.on('gameOver', (leaderboard) => {
+            this.setState({gameOver: true});
+        })
         
     }
 
@@ -275,6 +279,11 @@ class Game extends React.Component {
 
         let timer = <div><p>Time elapsed: {this.state.timer}s</p></div>
 
+        let gameOver = <div></div>;
+        if(this.state.gameOver) {
+            gameOver = <div><p>GAME OVER</p></div>
+        }
+
         return(
             <div>
                 <h3>GAME</h3>
@@ -291,6 +300,8 @@ class Game extends React.Component {
                 {answers}
 
                 {timer}
+
+                {gameOver}
             </div>
         )
     }

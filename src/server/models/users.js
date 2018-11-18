@@ -66,9 +66,22 @@ function comparePassword(id, password) {
     });
 }
 
+function getLeaderboard() {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT username, wins FROM users ORDER BY wins DESC`;
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     find,
     findOne,
     insertUser,
-    comparePassword
+    comparePassword,
+    getLeaderboard
 }

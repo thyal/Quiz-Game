@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 
@@ -19,7 +19,7 @@ class Navigation extends React.Component {
         return(
             <div className="navRight">
                 <ul>
-                    <li><button onClick={this.handleLogout}>Log out</button></li>
+                    <li><Link to={"/"} onClick={this.handleLogout}>Log out</Link></li>
                     <li><NavLink exact to={"/profile"}>{username}</NavLink></li>
                 </ul>
             </div>
