@@ -107,7 +107,10 @@ function startGame(game_id) {
 
 function endGame(game_id, winner_id) {
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE games SET isFinished = 1, winner_id = ${winner_id} WHERE id = ${game_id}`;
+        let sql = `UPDATE games 
+        SET isFinished = 1, 
+        winner_id = ${winner_id} 
+        WHERE id = ${game_id}`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
