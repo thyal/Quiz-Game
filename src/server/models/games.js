@@ -13,12 +13,12 @@ function find(id) {
     });
 }
 
-function createGame(user_id, name, numberOfQuestions) {
+function createGame(user_id, name, numberOfQuestions, randomplayers) {
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     
     return new Promise((resolve, reject) => {
-        let sql = `INSERT INTO games(user_id, name, numberOfQuestions, created_at)
-        VALUES(${user_id}, '${name}', ${numberOfQuestions}, '${date}')`;
+        let sql = `INSERT INTO games(user_id, name, numberOfQuestions, randomplayers, created_at)
+        VALUES(${user_id}, '${name}', ${numberOfQuestions}, ${randomplayers}, '${date}')`;
 
         db.query(sql, function(error, result, fields) {
             if(error) {
@@ -40,6 +40,19 @@ function getActiveGames() {
             resolve(result);
         });
     });
+}
+
+function getActiveGameRandomPlayers() {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM games WHERE hasStarted = 0 AND isFinished = 0 AND randomplayers = 1`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            resolve(result[0]);
+        });
+    })
 }
 
 function checkIfGameIsJoinable(gameId) {
@@ -208,6 +221,7 @@ module.exports = {
     find,
     createGame,
     getActiveGames,
+    getActiveGameRandomPlayers,
     checkIfGameIsJoinable,
     joinGame,
     getSocketIdForUser,

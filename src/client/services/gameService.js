@@ -1,6 +1,6 @@
-function createGame(name, numberOfQuestions) {
+function createGame(name, numberOfQuestions, randomplayers) {
     const url = "api/game/create";
-    const payload = {name: name, numberOfQuestions: numberOfQuestions};
+    const payload = {name: name, numberOfQuestions: numberOfQuestions, randomplayers: randomplayers};
 
     const options = {
         method: 'POST',
@@ -29,9 +29,16 @@ function getActiveGames() {
     return fetch(url);
 }
 
+function getActiveRandomGame() {
+    const url = "api/game/activeRandom";
+    
+    return fetch(url);
+}
+
 export const gameService = {
     createGame,
     isGameJoinable,
     getUsersInGame,
-    getActiveGames
+    getActiveGames,
+    getActiveRandomGame
 }

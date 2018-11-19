@@ -32,7 +32,7 @@ const start = (server) => {
             socket.to(payload.gameId).emit('newUser', payload);
         });
         
-        
+        //When the actual game is started. All the game logic is in the gameLogic file. 
         socket.on('startGame', async (gameId) => {
             gameLogic.playGame(io, gameId);
         });

@@ -300,7 +300,6 @@ class Game extends React.Component {
             } else {
                 gameOver = <div><p>Sorry, you didnt win</p></div>
             }
-            
         }
 
         return(

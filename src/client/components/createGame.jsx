@@ -27,9 +27,11 @@ class CreateGame extends React.Component {
     async onSubmit(event) {
         event.preventDefault();
         const {name, numberOfQuestions} = this.state;
+        const randomplayers = this.props.randomplayers;
+
         const { dispatch } = this.props;
         if(name && numberOfQuestions) {
-            await dispatch(gameActions.createGame(name, numberOfQuestions, this.props.history));
+            await dispatch(gameActions.createGame(name, numberOfQuestions, randomplayers, this.props.history));
             if(this.props.error !== undefined) {
                 this.setState({error: this.props.error});
             }          
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => {
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
-        error: state.gameReducer.error
+        error: state.gameReducer.error,
+        randomplayers: state.gameReducer.randomplayers
     }
 }
 

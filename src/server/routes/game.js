@@ -11,9 +11,15 @@ router.post('/create', async (req, res) => {
 
     const dto = req.body;
     let created;
-
+    let randomplayers;
+    
+    if(dto.randomplayers) {
+        randomplayers = 1;
+    } else {
+        randomplayers = 0;
+    }
     try {
-        created = await Games.createGame(req.user.id, dto.name, dto.numberOfQuestions);  
+        created = await Games.createGame(req.user.id, dto.name, dto.numberOfQuestions, randomplayers);  
     } catch(error) {
         return res.status(500);
     }
@@ -36,6 +42,27 @@ router.get('/active', async (req, res) => {
         return res.status(500);
     }
     res.status(200).json(activeGames);
+
+});
+
+router.get('/activeRandom', async (req, res) => {
+    if(!req.user) {
+        res.status(401).send();
+        return;
+    }
+
+    let activeGame;
+
+    try {
+        activeGame = await Games.getActiveGameRandomPlayers();
+    } catch(error) {
+        return res.status(500);
+    }
+    if(!activeGame) {
+        res.status(200).json(false);
+    } else {
+        res.status(200).json(activeGame);
+    }
 
 });
 

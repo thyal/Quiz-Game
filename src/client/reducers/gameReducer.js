@@ -33,6 +33,10 @@ const gameReducer = (state = {}, action) => {
             return {
                 ...state
             };
+        case gameConstants.CREATE_RANDOM_GAME_SUCCESS:
+            return {
+                randomplayers: true
+            }
         case gameConstants.GET_ACTIVE_SUCCESS:
             return {
                 games: action.games

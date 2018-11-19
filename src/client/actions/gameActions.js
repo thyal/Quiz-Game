@@ -1,10 +1,10 @@
 import { gameConstants } from "../constants/gameConstants";
 import { gameService } from "../services/gameService";
 
-function createGame(name, numberOfQuestions, history) {
+function createGame(name, numberOfQuestions, randomplayers, history) {
     return async (dispatch) => {
 
-        let response = await gameService.createGame(name, numberOfQuestions);
+        let response = await gameService.createGame(name, numberOfQuestions, randomplayers);
         let gameId = await response.json();
 
         if(response.status ===  401) {
@@ -17,6 +17,28 @@ function createGame(name, numberOfQuestions, history) {
     };
     function success(gameId) { return {type: gameConstants.CREATE_SUCCESS, gameId}}
     function failure(error) { return {type: gameConstants.CREATE_FAILURE, error}}
+}
+
+function getRandomPlayersGame(history) {
+    return async (dispatch) => {
+
+        let response = await gameService.getActiveRandomGame();
+        let game = await response.json();
+
+        if(response.status === 401) {
+            const error = "You are not logged in";
+            dispatch(failure(error));
+        } else if(response.status === 200) {
+            
+            if(game) {
+                dispatch(joinGame(game.id, history));
+            } else {
+                dispatch(success());
+                history.push(`/createGame`);
+            }
+        }
+    }
+    function success() { return {type: gameConstants.CREATE_RANDOM_GAME_SUCCESS}}
 }
 
 function joinGame(gameId, history) {
@@ -72,5 +94,6 @@ export const gameActions = {
     createGame,
     joinGame,
     getUsersInGame,
+    getRandomPlayersGame,
     getActiveGames
 }
