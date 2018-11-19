@@ -29,12 +29,18 @@ class Home extends React.Component {
         } else {
             html = 
             <div>
-                <h3>Home</h3>
-                <p>You could start a game directly from here, if a game is already started by another player,
-                    you will join that game.</p>
-
-                <p>Alterativly, you could go to the gamelobby, and see a list of active games ready to be
-                    joined, or create a new game.</p>
+                <h4>This game has two game modes.</h4>
+                <p>
+                    You could start a game from here, and play against random players.
+                    This works so that the first player who start a game will create a quiz,
+                    and the players who come after will join that game. When the game is started,
+                    a new game will be created if someone tries to start a game again.
+                </p>
+                <p>
+                    The other mode is the game lobby. Here you can create a quiz, share the game id
+                    with your friends and play together. You will also see a list with active games
+                    that you could join. 
+                </p>
                     
                 <Link to="/" onClick={this.handleClick}><button className="btn btn-submit">Start a game</button></Link>
                 <Link to="/gameLobby"><button className="btn btn-submit">Go to the gamelobby</button></Link>

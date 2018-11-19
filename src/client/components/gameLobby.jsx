@@ -63,12 +63,13 @@ class GameLobby extends React.Component {
         }
 
         return(
-            <div>
+            <div className="grid">
                 <div>
                     <h3>Game Lobby</h3>
-                    <Link to="/createGame">Create a new game</Link>  
+                    <Link to="/createGame"><button className="btn btn-submit">Create a new game</button></Link>  
+                    {inputGameId}
                 </div>
-                {inputGameId}           
+       
                 <div>
                     <h3>List of active games</h3>
                     {games}

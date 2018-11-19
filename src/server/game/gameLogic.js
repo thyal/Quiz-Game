@@ -181,6 +181,7 @@ async function gameIsOver(io, gameId) {
     let winner = users[0];
     await endGame(gameId, winner.user_id);
 
+    //We send one event to the winner, and another one to all the others.
     io.to(winner.socket_id).emit('winner');
 
     for(let i = 1; i > users.length; i++) {
