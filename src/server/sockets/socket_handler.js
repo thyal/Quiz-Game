@@ -41,7 +41,7 @@ const start = (server) => {
             let score = await gameLogic.checkAnswerAndCalculateScore(payload.question, payload.answer_id, payload.time);
             socket.emit("score", score);
             await gameLogic.updateUserScore(payload.user_id, payload.gameId, score);
-        });
+        });     
 
         socket.on('disconnect', () => {
             //Treat disconnect

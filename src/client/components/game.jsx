@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { Prompt } from 'react-router';
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
 import { gameActions } from "../actions/gameActions";
@@ -151,10 +152,11 @@ class Game extends React.Component {
 
     render() {
 
-        let html = <div></div>;
+        //The users connected to the game
+        let users = <div></div>;
 
         if(this.state.users !== null && this.state.users !== undefined){
-            html = <div>
+            users = <div style={{textAlign: "right"}}>
                 <h4>Players who joined the game</h4>
                 {this.state.users.map(user =>
                     <p key={user.user_id}> {user.username}</p>
@@ -162,10 +164,14 @@ class Game extends React.Component {
             </div>;
         }
 
-        let startGameBtn = <div></div>;
+        //The start game button. If the player created the game, it will show a button, else
+        //just a text.
+        let startGame = <div></div>;
 
         if(this.props.userCreatedGame && !this.state.hasStarted) {
-            startGameBtn = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+            startGame = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+        } else if(!this.props.userCreatedGame &&!this.state.hasStarted) {
+            startGame = <p>Waiting for the game to start.</p>
         }
 
         let round = <div></div>;
@@ -237,8 +243,10 @@ class Game extends React.Component {
                 </div>
             }
         }
+
+        let roundOver = <div></div>;
         if(this.state.roundOver && this.state.correctAnswer !== null) {
-            html = 
+            roundOver = 
             <div>
                 <h3>ROUND OVER</h3>
                 <p>The correct answer is: {this.state.correctAnswer.answer}</p>
@@ -305,9 +313,19 @@ class Game extends React.Component {
         return(
             <div>
                 <h3>GAME</h3>
-                {html}
 
-                {startGameBtn}
+                <div className="grid">
+                    <div>
+                        {startGame}
+                    </div>
+                    <div>
+                        {users}
+                    </div>
+                </div>
+
+                
+                {roundOver}
+
                 <h2>total score: {this.state.totalScore} you are in {this.state.placement}. place!</h2>
                 {round}
 
@@ -320,7 +338,14 @@ class Game extends React.Component {
                 {timer}
 
                 {gameOver}
+                
+                <Prompt
+                message="If you leave now the game will be forfeited. Are you sure you want to
+                leave?"
+                />
             </div>
+
+            
         )
     }
 }
