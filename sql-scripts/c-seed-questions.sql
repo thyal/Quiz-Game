@@ -1,8 +1,8 @@
 INSERT INTO categories(name) VALUES('General Knowledge');
 INSERT INTO categories(name) VALUES('Animals');
-INSERT INTO categories(name) VALUES('Sports');
 INSERT INTO categories(name) VALUES('Geography');
 INSERT INTO categories(name) VALUES('Movies / TV');
+INSERT INTO categories(name) VALUES('Sports');
 
 INSERT INTO questions(category_id, question) VALUES(1, '16 of what pieces are on a chess board at the start of a game?');
 INSERT INTO answers(question_id, answer, isCorrect) VALUES(1, 'Bishops', 0);

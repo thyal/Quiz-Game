@@ -17,6 +17,7 @@ const start = (server) => {
         socket.on('game', async (payload) => {
         socket.user = payload;
         
+        //Adding the socket to the map of connected sockets.
         connectedClients.set(socket.id, payload);
 
             //Authenticating with token.

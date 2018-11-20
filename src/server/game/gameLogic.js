@@ -131,7 +131,7 @@ async function playGame(io, gameId) {
         await timeout(20000);
 
         //Figuring out which answer is the correct one.
-        let correctAnswer = emitAnswer(answers);
+        let correctAnswer = getCorrectAnswer(answers);
 
         io.in(gameId).emit('roundOver', correctAnswer);
 
@@ -161,10 +161,10 @@ async function playGame(io, gameId) {
         
     }
 
-    gameIsOver(gameId);
+    gameIsOver(io,gameId);
 
 
-    function emitAnswer(answers) {
+    function getCorrectAnswer(answers) {
         let correctAnswer;
         for(answer of answers) {
             if(answer.isCorrect) {

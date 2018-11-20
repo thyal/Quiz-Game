@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { Prompt } from 'react-router';
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
-// import { gameActions } from "../actions/gameActions";
 import { userActions } from "../actions/userActions";
 
 class Game extends React.Component {
@@ -24,7 +23,7 @@ class Game extends React.Component {
             correctAnswer: null,
             selectedCorrect: false,
             clickable: true,
-            placement: 1,
+            placement: null,
             roundOver: false,
             leaderboard: null,
             gameOver: false,
@@ -32,9 +31,6 @@ class Game extends React.Component {
         }
         this.handleClick = this.handleClick.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
-    }
-    async componentWillMount() {
-
     }
 
     async componentDidMount() {
@@ -62,18 +58,6 @@ class Game extends React.Component {
         this.socket.on('users', (users) => {
             this.setState({users: users});
         });
-        // this.socket.on('newUser', (user) => {
-
-        //     this.setState(
-        //         prev => {
-        //             if(prev.users === null || prev.users === undefined){
-        //                 return {users: [user]};
-        //             } else {
-        //                 return {users: [...prev.users, user]};
-        //             }
-        //         }
-        //     )
-        // });
 
         this.socket.on('starting', () => {
             this.setState({hasStarted: true});
@@ -168,7 +152,7 @@ class Game extends React.Component {
 
         if(this.state.users !== null && this.state.users !== undefined){
             users = <div style={{textAlign: "right"}}>
-                <h4>Players who joined the game</h4>
+                <h4>Players in the game</h4>
                 {this.state.users.map(user =>
                     <p key={user.user_id}> {user.username}</p>
                 )}
@@ -299,7 +283,6 @@ class Game extends React.Component {
 
         let leaderboard = <div></div>;
         if(this.state.leaderboard !== null) {
-            console.log(this.state.leaderboard);
             leaderboard = 
             <div>
             {this.state.leaderboard.map((u) => {
@@ -323,11 +306,25 @@ class Game extends React.Component {
 
         return(
             <div>
-                <h3>GAME</h3>
+                <h3>Game Id: {this.props.gameId}</h3>
 
                 <div className="grid">
                     <div>
                         {startGame}
+                        {roundOver}
+
+                        <h2>total score: {this.state.totalScore} you are in {this.state.placement}. place!</h2>
+                        {round}
+
+                        {leaderboard}
+
+                        {question}
+
+                        {answers}
+
+                        {timer}
+
+                        {gameOver}
                     </div>
                     <div>
                         {users}
@@ -335,20 +332,7 @@ class Game extends React.Component {
                 </div>
 
                 
-                {roundOver}
 
-                <h2>total score: {this.state.totalScore} you are in {this.state.placement}. place!</h2>
-                {round}
-
-                {leaderboard}
-
-                {question}
-
-                {answers}
-
-                {timer}
-
-                {gameOver}
                 
                 <Prompt
                 message="If you leave now the game will be forfeited. Are you sure you want to
@@ -362,7 +346,6 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,

@@ -22,6 +22,7 @@
     * [Services](#services)
     * [Root Folder](#root-folder)
   * [Database](#database)
+* [Final thoughts](#final-toughts)
 
 ## Live URL
 This project is uploaded to a cloud provider (composed with Docker), and can be seen here;
@@ -35,7 +36,7 @@ has installed nodejs, npm and docker. This is all that is needed to run this pro
 ### Installation
 The first thing you need to do is run the NPM command `npm install`.
 This will install all dependencies.
-This project are running a database with docker. So it is needed to build and run the docker image before the solution is ran. This can be done with two npm commands.
+The project are running a database with docker. So it is needed to build and run the docker image before the solution is ran. This can be done with two npm commands.
 
 The next thing is to run the NPM command `npm run docker-build`.
 **It is very important that you wait for it to finish.**
@@ -112,6 +113,12 @@ These are API calls.
 Contains the entrypoint of the front-end (index.jsx) which sets up the redux store and renders app.jsx which contains the routing logic.
 
 ### Database
-I used a mysql database for this project, and it is running with docker. The docker setup will create a instance of a mysql database, create a user, create all tables and views, and seed some data. All questions and answers are seeded in at startup.
+I used a mysql database for this project, and it is running with docker. The files in the folder sql-scripts will be run on startup (first time image is build). This will create all tables and views, and seed the database with some data. The data beeing seeded are all the questions and answers.
 There are 6 tables in this project, users, games, userScores, categories, questions and answers. 
 
+## Final thoughts
+I am happy with how the prosject turned out, and I'm happy that I got to use many different technologies. I think the main functionality worked out good.
+That beeing said, it is not a perfect solution. If I had more time, I would first and foremost improve the socket logic regarding disconnecting and leaving a game etc. There could be improvements here. There are other things I thought about during the process, like beeing able to create your own questions, and stuff like that, but I did not have time to implement this.
+Also I would focus more on the design and the total impression of the application. The security could also be better, I think. 
+
+I did not run into any major problems while creating this application, other than normal things when creating a project like this. There weren't any show-stoppers. I did make myself learn about topics that I didnt know about, like redux and docker, so I did use some time doing that, but I definitivly think it was worth it. These are things I'm going to use in the future. All in all I am happy with my solution, and I have learned alot in this process. 

@@ -1,5 +1,5 @@
 CREATE OR REPLACE VIEW vUserScores AS
-SELECT users.username, userScores.user_id, userScores.game_id, userScores.userScore, userScores.isCreator
+SELECT users.username, userScores.user_id, userScores.game_id, userScores.userScore, userScores.isCreator, userScores.socket_id
 FROM users JOIN userScores ON users.id = userScores.user_id;
 
 
