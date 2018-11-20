@@ -22,6 +22,16 @@ const userReducer = (state = {}, action) => {
                 loggedIn: false,
                 error: action.error
             };
+        case userConstants.GET_SUCCESS:
+            return {
+                loggedIn: true,
+                user: action.user
+            };
+        case userConstants.GET_FAILURE:
+            return {
+                loggedIn: false,
+                error: action.error
+            };
         case userConstants.GET_TOKEN_SUCCESS:
             return {
                 ...state,

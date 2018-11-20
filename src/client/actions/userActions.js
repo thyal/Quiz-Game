@@ -39,6 +39,24 @@ function signup(username, password, history) {
     function failure(error) { return {type: userConstants.SIGNUP_FAILURE, error}}
 }
 
+function getUser() {
+    return async (dispatch) => {
+
+        let response = await userService.getUser();
+        let user = await response.json();
+
+        if(response.status === 401) {
+            const error = "You are not logged in";
+            dispatch(failure(error));
+        } else if(response.status === 200) {
+            dispatch(success(user));
+        }
+    }
+
+    function success(user) { return {type: userConstants.GET_SUCCESS, user}}
+    function failure(error) { return {type: userConstants.GET_FAILURE, error}}
+}
+
 function getToken() {
     return async (dispatch) => {
         let response;
@@ -88,6 +106,7 @@ function logout() {
 export const userActions = {
     login,
     signup,
+    getUser,
     getToken,
     logout
 }

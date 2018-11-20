@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { userActions } from "../actions/userActions";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -9,6 +10,11 @@ class Profile extends React.Component {
         this.state = {
 
         };
+    }
+
+    async componentDidMount() {
+        const {dispatch} = this.props;
+        await dispatch(userActions.getUser());
     }
 
     render() {
