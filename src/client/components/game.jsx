@@ -83,9 +83,10 @@ class Game extends React.Component {
 
         this.socket.on('answers', (answers) => {
             this.setState({answers: answers});
+            clearInterval(this.timer);
             if(this.state.timer >= 0) {
                 this.timer = setInterval(() => this.setState({
-                    timer: this.state.timer + - 1
+                    timer: this.state.timer - 1
                 }), 1000);
             }
         });
@@ -112,6 +113,10 @@ class Game extends React.Component {
             }
             this.setState({roundOver: true, correctAnswer: correctAnswer});
             clearInterval(this.timer);
+            this.setState({timer: 15});
+            this.timer = setInterval(() => this.setState({
+                timer: this.state.timer -1
+            }), 1000);
         });
 
         this.socket.on('gameOver', (leaderboard) => {
@@ -191,10 +196,19 @@ class Game extends React.Component {
         </div>
 
         //The count down timer
-        let timer = 
-        <div>
-            <h3>Time left of the round: <b>{this.state.timer}</b>s</h3>
-        </div>
+        let timer = <div></div>;
+        
+        if(this.state.roundOver) {
+            timer =
+            <div>
+                <h3>Time left to new round: <b>{this.state.timer}</b></h3>
+            </div>
+        } else {
+            timer =
+            <div>
+                <h3>Time left of the round: <b>{this.state.timer}</b>s</h3>
+            </div>
+        }
 
         //The question and answers
         let question = <div></div>;
@@ -340,7 +354,7 @@ class Game extends React.Component {
                 <div>
                     {startGame}
                     {roundOver}
-                    
+
                     {round}
 
                     {leaderboard}
