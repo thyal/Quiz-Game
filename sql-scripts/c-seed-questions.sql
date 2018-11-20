@@ -50,7 +50,7 @@ INSERT INTO questions(category_id, question) VALUES(4, 'What has been the longes
 INSERT INTO answers(question_id, answer, isCorrect) VALUES(8, 'Americas Funniest Home Videos', 0);
 INSERT INTO answers(question_id, answer, isCorrect) VALUES(8, 'The Love Boat', 0);
 INSERT INTO answers(question_id, answer, isCorrect) VALUES(8, 'The Red Skelton Show', 0);
-INSERT INTO answers(question_id, answer, isCorrect) VALUES(8, 'AThe Simpsons', 1);
+INSERT INTO answers(question_id, answer, isCorrect) VALUES(8, 'The Simpsons', 1);
 
 INSERT INTO questions(category_id, question) VALUES(3, 'What is the most populous city in Africa?');
 INSERT INTO answers(question_id, answer, isCorrect) VALUES(9, 'Cairo', 1);

@@ -22,6 +22,7 @@ const gameReducer = (state = {}, action) => {
             };
         case gameConstants.JOIN_FAILURE: 
             return {
+                ...state,
                 error: action.error
             };
         case gameConstants.CREATE_RANDOM_GAME_SUCCESS:

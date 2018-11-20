@@ -41,7 +41,7 @@ The project are running a database with docker. So it is needed to build and run
 The next thing is to run the NPM command `npm run docker-build`.
 **It is very important that you wait for it to finish.**
 This will build the docker image. When this is done, you can run `npm run docker-run`.
-This will initialize the database and create tables etc.
+This will actually run the docker image. All the tables and views will be created and the database will be seeded with some questions and answers.
 
 Now that all dependencies are installed, and the database is up and running, you can run the NPM command `npm run dev` to actually run the project. The homepage should now be avaliable at http://localhost:8080
 

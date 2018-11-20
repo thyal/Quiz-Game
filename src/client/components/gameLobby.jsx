@@ -6,8 +6,14 @@ import { gameActions } from "../actions/gameActions";
 class GameLobby extends React.Component {
     constructor(props) {
         super(props);
+        
+        this.state = {
+            joinId: 0
+        }
 
+        this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleJoin = this.handleJoin.bind(this);
     }
 
     componentDidMount() {
@@ -16,25 +22,40 @@ class GameLobby extends React.Component {
         dispatch(gameActions.getActiveGames());
     }
 
-    handleClick(id) {
+    handleChange(event) {
+        this.setState({joinId: event.target.value})
+    }
+
+    async handleClick(id) {
         const { dispatch } = this.props;
-        dispatch(gameActions.joinGame(id, this.props.history));
+        await dispatch(gameActions.joinGame(id, this.props.history));
+    }
+
+    async handleJoin(event) {
+        event.preventDefault();
+        const { dispatch } = this.props;
+        await dispatch(gameActions.joinGame(this.state.joinId, this.props.history));
+
+        if(this.props.joinError) {
+            alert("Cannot join that game id. This could be because the game has started, or that it was the wrong id. Try again.");
+        }
     }
 
     render() {
 
         let inputGameId = 
         <div>
-            <form className="input-form">
+            <form className="input-form" onSubmit={this.handleJoin}>
                 <label htmlFor="inputGameId">Enter the game id for a game you want to join</label>
-                <input type="number" id="inputGameId"/>
-                <button className="btn btn-submit">JOIN</button>
+                <input value={this.state.joinId} onChange={this.handleChange} type="number" id="inputGameId"/>
+                <button type="submit" className="btn btn-submit">JOIN</button>
             </form>
         </div>
 
         let games = <div></div>;
-
-        if(this.props.games !== undefined) {
+        if(this.props.games === undefined || this.props.games.length === 0) {
+            games = <p>There are currently no active games. You should create one!</p>
+        } else {
             games = 
             <div>
                 <table className="tbl-active-games">
@@ -60,6 +81,7 @@ class GameLobby extends React.Component {
             </div>
         }
 
+
         return(
             <div className="grid">
                 <div>
@@ -81,7 +103,8 @@ const mapStateToProps = (state) => {
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
-        games: state.gameReducer.games
+        games: state.gameReducer.games,
+        joinError: state.gameReducer.error
     }
 }
 
