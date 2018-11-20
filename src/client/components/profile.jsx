@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Profile extends React.Component {
@@ -11,16 +12,33 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        let html = <div></div>;
+
+        if(this.props.user === undefined) {
+            html = 
+            <div>
+                <p>You have to log in to play</p>
+                <Link to="/login"><button className="btn btn-submit">Login</button></Link>
+            </div>
+        } else {
+            html = 
+            <div>
+                <h3>{this.props.user.username}</h3>
+                <h4>Number of wins: {this.props.user.wins}</h4>
+            </div>
+        }
         return(
-            <div><h3>Profile</h3></div>
+            <div>
+                {html}
+            </div>     
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        loggedIn: state.userReducer.loggedIn,
+        user: state.userReducer.user
     }
 }
 
