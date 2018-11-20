@@ -173,3 +173,24 @@ html, body {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+/* Leaderboard */
+
+.table-leaderboard {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-leaderboard td, .table-leaderboard th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table-leaderboard th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}

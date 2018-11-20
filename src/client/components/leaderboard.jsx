@@ -6,14 +6,65 @@ class Leaderboard extends React.Component {
         super(props);
 
         this.state = {
-
+            error: null,
+            leaderboard: null
         };
+    }
+    componentDidMount() {
+        this.getLeaderboard();
+    }
+
+    async getLeaderboard() {
+        const url = "api/game/leaderboard";
+        let response;
+        let leaderboard;
+
+        try {
+            response = await fetch(url);
+        } catch(error) {
+            this.setState({error: "Something went wrong", leaderboard: null});
+        }
+        if(response.status === 200) {
+            leaderboard = await response.json();
+            this.setState({leaderboard: leaderboard, error: null});
+        }
+
     }
 
     render() {
-        console.log(this.props);
+        let html;
+
+        if(this.state.error !== null) {
+            html = <p>{this.state.error}</p>
+        } else if(this.state.leaderboard === null || this.state.leaderboard.length === 0) {
+            html = <h3>There are currently no users in the leaderboard</h3>
+        } else {
+            html = 
+            <div>
+                <table className="table-leaderboard">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Number of wins</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.leaderboard.map(u => 
+                            <tr key={u.username}>
+                                <td>{u.username}</td>
+                                <td>{u.wins}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        }
+
         return(
-            <div><h3>Leaderboard</h3></div>
+            <div>
+                <h2>Leaderboard</h2>
+                {html}
+            </div>
         );
     }
 }

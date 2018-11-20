@@ -77,6 +77,18 @@ function getActiveGames() {
     function failure(error) { return {type: gameConstants.GET_ACTIVE_FAILURE, error}}
 }
 
+// function getLeaderboard() {
+//     return async (dispatch) => {
+        
+//         let response = await gameService.getLeaderboard();
+//         let leaderboard = await response.json();
+
+//         if(response.status === 200) {
+//             dispatch(success(leaderboard))
+//         }
+//     }
+// }
+
 export const gameActions = {
     createGame,
     joinGame,

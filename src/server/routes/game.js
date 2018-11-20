@@ -1,5 +1,6 @@
 const express = require('express');
 const Games = require('../models/games');
+const Users = require('../models/users');
 
 const router = express.Router();
 
@@ -78,5 +79,17 @@ router.get('/isGameJoinable/:gameId', async (req, res) => {
 
     res.status(200).json(response);
 });
+
+router.get('/leaderboard', async (req, res) => {
+    let response;
+
+    try {
+        response = await Users.getLeaderboard();
+    } catch(error) {
+        return res.status(500);
+    }
+
+    res.status(200).json(response);
+})
 
 module.exports = router;

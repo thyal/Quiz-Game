@@ -43,12 +43,12 @@ function getUser() {
     return async (dispatch) => {
 
         let response = await userService.getUser();
-        let user = await response.json();
 
         if(response.status === 401) {
             const error = "You are not logged in";
             dispatch(failure(error));
         } else if(response.status === 200) {
+            let user = await response.json();
             dispatch(success(user));
         }
     }
