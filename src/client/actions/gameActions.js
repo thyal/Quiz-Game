@@ -60,21 +60,6 @@ function joinGame(gameId, history) {
     function failure(error) { return {type: gameConstants.JOIN_FAILURE, error}}
 }
 
-function getUsersInGame(gameId) {
-    return async (dispatch) => {
-        let response = await gameService.getUsersInGame(gameId);
-
-        if(response.status === 200) {
-            let users = await response.json();
-            dispatch(success(users));
-        } else {
-            dispatch(failure("Something went wrong"));
-        }
-    }
-    function success(users) { return {type: gameConstants.GET_USERS_SUCCESS, users}}
-    function failure(error) { return {type: gameConstants.GET_USERS_FAILURE, error}}
-}
-
 function getActiveGames() {
     return async (dispatch) => {
 
@@ -95,7 +80,6 @@ function getActiveGames() {
 export const gameActions = {
     createGame,
     joinGame,
-    getUsersInGame,
     getRandomPlayersGame,
     getActiveGames
 }

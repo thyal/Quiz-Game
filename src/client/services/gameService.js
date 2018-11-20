@@ -17,12 +17,6 @@ function isGameJoinable(gameId) {
     return fetch(url);
 }
 
-function getUsersInGame(gameId) {
-    const url = `/api/game/usersInGame/${gameId}`;
-
-    return fetch(url);
-}
-
 function getActiveGames() {
     const url = "api/game/active";
     
@@ -38,7 +32,6 @@ function getActiveRandomGame() {
 export const gameService = {
     createGame,
     isGameJoinable,
-    getUsersInGame,
     getActiveGames,
     getActiveRandomGame
 }

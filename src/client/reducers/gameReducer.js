@@ -24,15 +24,6 @@ const gameReducer = (state = {}, action) => {
             return {
                 error: action.error
             };
-        case gameConstants.GET_USERS_SUCCESS:
-            return {
-                ...state,
-                users: action.users
-            };
-        case gameConstants.GET_USERS_FAILURE:
-            return {
-                ...state
-            };
         case gameConstants.CREATE_RANDOM_GAME_SUCCESS:
             return {
                 randomplayers: true
