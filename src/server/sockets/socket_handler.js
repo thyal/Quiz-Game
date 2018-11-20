@@ -59,10 +59,27 @@ const start = (server) => {
             let score = await gameLogic.checkAnswerAndCalculateScore(payload.question, payload.answer_id, payload.time);
             socket.emit("score", score);
             await gameLogic.updateUserScore(payload.user_id, payload.gameId, score);
-        });     
+        });
+
+        socket.on('leave', (gameId) => {
+            connectedClients.delete(socket.id);
+            
+            io.in(gameId).clients(async (error, clients) => {
+                if(error) throw error;
+                let users = [];
+                clients.forEach((client) => {
+                    let user = connectedClients.get(client);
+                    console.log(user);
+                    if(user !== undefined) {
+                        users.push(user);
+                    }
+                });
+                io.in(gameId).emit('users', users);
+            });
+        });
 
         socket.on('disconnect', () => {
-            //Treat disconnect
+
         });
 
         

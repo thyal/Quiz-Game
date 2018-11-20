@@ -138,12 +138,10 @@ class Game extends React.Component {
         
     }
 
-    // async getUsers() {
-    //     const { dispatch } = this.props;
-    //     await dispatch(gameActions.getUsersInGame(this.props.gameId));
-
-    //     this.setState({users: this.props.users});
-    // }
+    componentWillUnmount() {
+        this.socket.emit('leave', this.props.gameId);
+        this.socket.disconnect();
+    }
 
     handleClick() {
         this.socket.emit('startGame', this.props.gameId);
