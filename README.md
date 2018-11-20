@@ -35,13 +35,26 @@ has installed nodejs, npm and docker. This is all that is needed to run this pro
 ### Installation
 The first thing you need to do is run the NPM command `npm install`.
 This will install all dependencies.
-The next thing is to run the NPM command `npm run setup`.
-This will initialize the database and create tables etc. **It is very important that you wait for it to finish.**
+This project are running a database with docker. So it is needed to build and run the docker image before the solution is ran. This can be done with two npm commands.
+
+The next thing is to run the NPM command `npm run docker-build`.
+**It is very important that you wait for it to finish.**
+This will build the docker image. When this is done, you can run `npm run docker-run`.
+This will initialize the database and create tables etc.
 
 Now that all dependencies are installed, and the database is up and running, you can run the NPM command `npm run dev` to actually run the project. The homepage should now be avaliable at http://localhost:8080
 
 ## The solution
-The solution is a quiz game, loosely based on Kahoot. You need a profile to play. This can be made from the signup page. I made the choice to have the posibility to have multiple games run at once, and the posibility to join which game you want (as long as it is active, and has not started.) This makes it possible for players to share a gameId with eachother and to join that same game. This functionality is based on Kahoot, and to be honest it is not very useful unless you have alot of players online at the same time. Either way as it is now, its also easy to just join the last created game. When the player that created the game actually starts it, all players will get the first question (picked at random), and the possible answers. The players then have 20 seconds to give an answer. After this time, the right answer will be shown, and players get points if they had the right one, and they get points based on how fast they answer. If a player has the wrong answer, or doesn't answer at all, they get 0 points for that round. This repeats itself until the game is over. (The player who created the game can select how many questions there will be). At the end of the game a winner will be announced, and the leaderboard will get updated. 
+The solution is a quiz game, where players can play a game against other players online. You need a profile to play. This can be made from the signup page. 
+
+There are two game modes in this game. The first one is as described in the exam description.
+This is the button at the front-page that says "start a game". How this works is that the first player that starts a game will have to create a game. The player will get to choose how many questions the game will consist of, and choose a name for the game. The player will then wait for other players to join. The next players that start a game, will then automatically join that game. When a game has enough players (atleast two, but can be as many as you want) the creator can start the game. The quiz will start, and if a new player starts a game, a new instance of a game will be started.
+
+The other mode is the gamelobby. Here you can start a game, you can see a list of active games waiting for players, and you can enter a game id for a specific game you want to join. This is good if you want to start a game and play against friends. 
+
+The actual game works  and players will get questions and answers and the get scored on wheter they have the right one, and how long time they use to answer. The game is over when the question-limit choosed are reached. A winner will then be announced and the leaderboard will be updated.
+
+I made the choice to have the posibility to have multiple games run at once, and the posibility to join which game you want (as long as it is active, and has not started.) This makes it possible for players to share a gameId with eachother and to join that same game. This functionality is based on Kahoot, and to be honest it is not very useful unless you have alot of players online at the same time. Either way as it is now, its also easy to just join the last created game. When the player that created the game actually starts it, all players will get the first question (picked at random), and the possible answers. The players then have 20 seconds to give an answer. After this time, the right answer will be shown, and players get points if they had the right one, and they get points based on how fast they answer. If a player has the wrong answer, or doesn't answer at all, they get 0 points for that round. This repeats itself until the game is over. (The player who created the game can select how many questions there will be). At the end of the game a winner will be announced, and the leaderboard will get updated. 
 
 ## Technologies used
 The technologies used in this project consist of nodejs with express running the back-end,

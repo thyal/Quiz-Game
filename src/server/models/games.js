@@ -105,6 +105,23 @@ function getSocketIdForUser(user_id, game_id) {
     });
 }
 
+function getUsernameFromSocketId(socket_id, game_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT user_id FROM userScores WHERE socket_id = ${socket_id} AND game_id = ${game_id}`;
+
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                reject(error);
+            }
+            if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }       
+        });
+    });
+}
+
 function getUsersInGame(game_id) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT * FROM vUserScores WHERE game_id = ${game_id} ORDER BY userScore DESC`;
@@ -250,6 +267,7 @@ module.exports = {
     checkIfGameIsJoinable,
     joinGame,
     getSocketIdForUser,
+    getUsernameFromSocketId,
     getUsersInGame,
     startGame,
     endGame,

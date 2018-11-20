@@ -46,6 +46,7 @@ function getToken() {
         try {
             response = await userService.getToken();
         } catch(err) {
+            console.log("error");
             error = "Something went wrong";
             dispatch(failure(error));
         }
@@ -54,9 +55,11 @@ function getToken() {
             dispatch(failure(error));
         }
         if(response.status === 201) {
+            console.log("yay");
             const token = await response.json();
             dispatch(success(token));
         }
+        console.log(response);
 
         
     }

@@ -34,12 +34,9 @@ function getUser() {
 }
 
 function getToken() {
-    const url = "api/auth/token";
-    const options = {
-        method: 'POST'
-    };
+    const url = "../api/auth/token";
 
-    return fetch(url, options);
+    return fetch(url, {method: 'POST'});
 }
 
 function logout() {

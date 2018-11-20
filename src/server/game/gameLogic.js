@@ -41,6 +41,10 @@ async function getSocketIdForUser(userId, gameId) {
     return await Games.getSocketIdForUser(userId, gameId);
 }
 
+async function getUsernameFromSocketId(socketId, gameId) {
+    return await Games.getUsernameFromSocketId(socketId, gameId);
+}
+
 async function getTotalNumberOfPlayersInGame(gameId) {
     return await Games.getNumberOfPlayersInGame(gameId);
 }
@@ -196,6 +200,7 @@ module.exports = {
     startGame,
     joinGame,
     getSocketIdForUser,
+    getUsernameFromSocketId,
     endGame,
     getTotalNumberOfPlayersInGame,
     provideQuestion,

@@ -51,7 +51,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/token', function (req, res) {
-
+    console.log("post token");
     if(! req.user){
         res.status(401).send();
         return;

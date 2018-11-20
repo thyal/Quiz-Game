@@ -3,13 +3,15 @@ import { withRouter } from "react-router-dom";
 import { Prompt } from 'react-router';
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
-import { gameActions } from "../actions/gameActions";
+// import { gameActions } from "../actions/gameActions";
+import { userActions } from "../actions/userActions";
 
 class Game extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            error: null,
             users: [],
             hasStarted: false,
             roundScore: 0,
@@ -31,13 +33,21 @@ class Game extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleAnswer = this.handleAnswer.bind(this);
     }
+    async componentWillMount() {
+
+    }
 
     async componentDidMount() {
-        console.log("heeeei");
 
-        //First we get users already in the game-room, and open a socket connection
-        await this.getUsers();
+        //The first thing we do is to get a token from the server.
+        const { dispatch } = this.props;
+        try {
+            await dispatch(userActions.getToken());
+        } catch(error) {
+            this.setState({error: 'Invalid token'});
+        }
 
+        //Then open a socket connection.
         this.socket = openSocket(window.location.origin);
 
         const payload = {
@@ -48,19 +58,22 @@ class Game extends React.Component {
         };
 
         this.socket.emit('game', payload);
-
-        this.socket.on('newUser', (user) => {
-
-            this.setState(
-                prev => {
-                    if(prev.users === null || prev.users === undefined){
-                        return {users: [user]};
-                    } else {
-                        return {users: [...prev.users, user]};
-                    }
-                }
-            )
+        
+        this.socket.on('users', (users) => {
+            this.setState({users: users});
         });
+        // this.socket.on('newUser', (user) => {
+
+        //     this.setState(
+        //         prev => {
+        //             if(prev.users === null || prev.users === undefined){
+        //                 return {users: [user]};
+        //             } else {
+        //                 return {users: [...prev.users, user]};
+        //             }
+        //         }
+        //     )
+        // });
 
         this.socket.on('starting', () => {
             this.setState({hasStarted: true});
@@ -125,12 +138,12 @@ class Game extends React.Component {
         
     }
 
-    async getUsers() {
-        const { dispatch } = this.props;
-        await dispatch(gameActions.getUsersInGame(this.props.gameId));
+    // async getUsers() {
+    //     const { dispatch } = this.props;
+    //     await dispatch(gameActions.getUsersInGame(this.props.gameId));
 
-        this.setState({users: this.props.users});
-    }
+    //     this.setState({users: this.props.users});
+    // }
 
     handleClick() {
         this.socket.emit('startGame', this.props.gameId);
@@ -351,7 +364,7 @@ class Game extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
+    console.log(state);
     return {
         loggedIn: state.userReducer.loggedIn,
         user: state.userReducer.user,
