@@ -1,8 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import openSocket from 'socket.io-client';
 import { gameActions } from "../actions/gameActions";
 
 class GameLobby extends React.Component {

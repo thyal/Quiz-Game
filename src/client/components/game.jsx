@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Prompt } from 'react-router';
 import { connect } from "react-redux";
 import openSocket from 'socket.io-client';
@@ -198,10 +198,10 @@ class Game extends React.Component {
         //The count down timer
         let timer = <div></div>;
         
-        if(this.state.roundOver) {
+        if(this.state.roundOver && !this.state.gameOver) {
             timer =
             <div>
-                <h3>Time left to new round: <b>{this.state.timer}</b></h3>
+                <h3>Time left to new round: <b>{this.state.timer}</b>s</h3>
             </div>
         } else {
             timer =
@@ -328,13 +328,26 @@ class Game extends React.Component {
 
         }
 
+        //When the game is over.
         let gameOver = <div></div>;
+        let gameOverLinks;
         if(this.state.gameOver) {
             if(this.state.winner) {
-                gameOver = <div><h2>YOU WON</h2></div>
+                gameOver = 
+                <div className="text-center">
+                    <h2 className="msg msg-success">Congratulations! You won the game!</h2>
+                </div>
             } else {
-                gameOver = <div><p>Sorry, you didnt win</p></div>
+                gameOver = 
+                <div>
+                    <h2>You ended in {this.state.placement}. place</h2>
+                </div>
             }
+            gameOverLinks = 
+            <div>
+            <Link to="/leaderboard"><button className="btn btn-submit">Go to the leaderboard</button></Link>  
+            <Link to="/"><button className="btn btn-submit">Go to the homepage</button></Link>
+            </div>
         }
 
         return(
@@ -346,7 +359,7 @@ class Game extends React.Component {
                     {totalScore}
                     {timer}
                     </div>
-                    <div class="grid-right">
+                    <div className="grid-right">
                         {users}
                     </div>
                 </div>
@@ -364,12 +377,14 @@ class Game extends React.Component {
                     {answers}
 
                     {gameOver}
+                    {gameOverLinks}
                 </div>
 
                 
 
                 
                 <Prompt
+                when={!this.state.gameOver}
                 message="If you leave now the game will be forfeited. Are you sure you want to
                 leave?"
                 />
