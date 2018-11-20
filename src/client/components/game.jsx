@@ -15,7 +15,7 @@ class Game extends React.Component {
             hasStarted: false,
             roundScore: 0,
             totalScore: 0,
-            timer: 0,
+            timer: 20,
             round: null,
             question: null,
             answers: [],
@@ -67,7 +67,7 @@ class Game extends React.Component {
             this.setState({
                 round: round,
                 question: null,
-                timer: 0,
+                timer: 20,
                 answers: [],
                 selectedAnswerId: 0,
                 correctAnswer: null,
@@ -83,9 +83,11 @@ class Game extends React.Component {
 
         this.socket.on('answers', (answers) => {
             this.setState({answers: answers});
-            this.timer = setInterval(() => this.setState({
-                timer: this.state.timer + 1
-            }), 1000);
+            if(this.state.timer >= 0) {
+                this.timer = setInterval(() => this.setState({
+                    timer: this.state.timer + - 1
+                }), 1000);
+            }
         });
 
         this.socket.on('score', (score) => {
@@ -150,7 +152,7 @@ class Game extends React.Component {
         //The users connected to the game
         let users = <div></div>;
 
-        if(this.state.users !== null && this.state.users !== undefined){
+        if(this.state.users !== null && this.state.users !== undefined && !this.state.gameOver){
             users = <div style={{textAlign: "right"}}>
                 <h4>Players in the game</h4>
                 {this.state.users.map(user =>
@@ -169,12 +171,32 @@ class Game extends React.Component {
             startGame = <p>Waiting for the game to start.</p>
         }
 
+        //The round counter.
         let round = <div></div>;
 
         if(this.state.round !== null) {
             round = <h3>Question {this.state.round.round} of {this.state.round.totalRounds}</h3>
         }
 
+        //The placement and total score
+        let placement = <div></div>;
+        if(this.state.placement !== null) {
+            placement = <p>You are in {this.state.placement}. place!</p>
+        }
+
+        let totalScore = 
+        <div>
+            <h2>Your total score: {this.state.totalScore}</h2>
+            {placement}
+        </div>
+
+        //The count down timer
+        let timer = 
+        <div>
+            <h3>Time left of the round: <b>{this.state.timer}</b>s</h3>
+        </div>
+
+        //The question and answers
         let question = <div></div>;
 
         if(this.state.question !== null && !this.state.roundOver) {
@@ -243,9 +265,8 @@ class Game extends React.Component {
         if(this.state.roundOver && this.state.correctAnswer !== null) {
             roundOver = 
             <div>
-                <h3>ROUND OVER</h3>
+            {result}
                 <p>The correct answer is: {this.state.correctAnswer.answer}</p>
-                {result}
             </div>
 
             answers = 
@@ -293,8 +314,6 @@ class Game extends React.Component {
 
         }
 
-        let timer = <div><p>Time elapsed: {this.state.timer}s</p></div>
-
         let gameOver = <div></div>;
         if(this.state.gameOver) {
             if(this.state.winner) {
@@ -306,29 +325,31 @@ class Game extends React.Component {
 
         return(
             <div>
-                <h3>Game Id: {this.props.gameId}</h3>
-
                 <div className="grid">
                     <div>
-                        {startGame}
-                        {roundOver}
-
-                        <h2>total score: {this.state.totalScore} you are in {this.state.placement}. place!</h2>
-                        {round}
-
-                        {leaderboard}
-
-                        {question}
-
-                        {answers}
-
-                        {timer}
-
-                        {gameOver}
+                    <h3>Game Id: {this.props.gameId}</h3>
+                
+                    {totalScore}
+                    {timer}
                     </div>
-                    <div>
+                    <div class="grid-right">
                         {users}
                     </div>
+                </div>
+
+                <div>
+                    {startGame}
+                    {roundOver}
+                    
+                    {round}
+
+                    {leaderboard}
+
+                    {question}
+
+                    {answers}
+
+                    {gameOver}
                 </div>
 
                 
