@@ -51,6 +51,20 @@ function insertUser(username, password) {
     });
 }
 
+function updateWins(user_id) {
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE users SET wins = wins + 1 WHERE id = ${user_id}`;
+    
+        db.query(sql, function(error, result, fields) {
+            if(error) {
+                console.log(error);
+                reject(error);
+            }
+            resolve(result);
+        });
+    })
+}
+
 function comparePassword(id, password) {
     let sql = `SELECT password FROM users WHERE id = ${id}`;
     let hashedPassword;
@@ -88,6 +102,7 @@ function getLeaderboard() {
 module.exports = {
     find,
     findOne,
+    updateWins,
     insertUser,
     comparePassword,
     getLeaderboard

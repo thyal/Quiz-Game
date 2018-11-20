@@ -1,4 +1,5 @@
 const Games = require('../models/games');
+const Users = require('../models/users');
 
 async function getGame(gameId) {
     let game;
@@ -182,7 +183,7 @@ async function gameIsOver(io, gameId) {
     //when we get the users from the database. 
     let winner = users[0];
     await endGame(gameId, winner.user_id);
-
+    await Users.updateWins(winner.user_id);
     //We send one event to the winner, and another one to all the others.
     io.to(winner.socket_id).emit('winner');
 

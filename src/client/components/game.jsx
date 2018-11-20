@@ -179,7 +179,7 @@ class Game extends React.Component {
         //The round counter.
         let round = <div></div>;
 
-        if(this.state.round !== null) {
+        if(this.state.round !== null && !this.state.gameOver) {
             round = <h3>Question {this.state.round.round} of {this.state.round.totalRounds}</h3>
         }
 
@@ -213,7 +213,7 @@ class Game extends React.Component {
         //The question and answers
         let question = <div></div>;
 
-        if(this.state.question !== null && !this.state.roundOver) {
+        if(this.state.question !== null && !this.state.gameOver) {
             question = 
             <div>
                 <h2>Category: {this.state.question.category_name}</h2>
@@ -222,7 +222,7 @@ class Game extends React.Component {
         }
 
         let answers = <div></div>;
-        if(this.state.answers.length > 0 && !this.state.roundOver) {
+        if(this.state.answers.length > 0 && !this.state.roundOver && !this.state.gameOver) {
             answers = 
             <div>
                 {this.state.answers.map((a) => 
@@ -236,7 +236,7 @@ class Game extends React.Component {
             </div>
         }
 
-        if(!this.state.clickable) {
+        if(!this.state.clickable && !this.state.gameOver) {
             answers = 
             <div>
                 {this.state.answers.map((a) => {
@@ -260,7 +260,7 @@ class Game extends React.Component {
 
         /* RESULT */
         let result = <div></div>;
-        if(this.state.correctAnswer !== null) {
+        if(this.state.correctAnswer !== null && !this.state.gameOver) {
             if(this.state.correctAnswer.id === this.state.selectedAnswerId) {
                 result = 
                 <div className="msg msg-success">
@@ -276,7 +276,7 @@ class Game extends React.Component {
         }
 
         let roundOver = <div></div>;
-        if(this.state.roundOver && this.state.correctAnswer !== null) {
+        if(this.state.roundOver && this.state.correctAnswer !== null && !this.state.gameOver) {
             roundOver = 
             <div>
             {result}
