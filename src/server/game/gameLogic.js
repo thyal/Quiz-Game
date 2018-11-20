@@ -65,13 +65,11 @@ async function provideAnswers(question_id) {
 async function checkAnswerAndCalculateScore(question_id, answer_id, time) {
     let answers = await Games.getAnswers(question_id);
     let points = 0;
-    let maxTime = 20;
 
     for(answer of answers) {
         if(answer.isCorrect && answer_id === answer.id) {
             points += 10;
-            let timeScore = maxTime - time;
-            points += timeScore
+            points += time;
         }
     }
     return points;

@@ -117,8 +117,11 @@ I used a mysql database for this project, and it is running with docker. The fil
 There are 6 tables in this project, users, games, userScores, categories, questions and answers. 
 
 ## Final thoughts
-I am happy with how the prosject turned out, and I'm happy that I got to use many different technologies. I think the main functionality worked out good.
-That beeing said, it is not a perfect solution. If I had more time, I would first and foremost improve the socket logic regarding disconnecting and leaving a game etc. There could be improvements here. There are other things I thought about during the process, like beeing able to create your own questions, and stuff like that, but I did not have time to implement this.
+I am happy with how the prosject turned out, and I'm happy that I got to use many different technologies. I think the main functionality worked out good. I'm think the game logic is good, and the actual game is fun to play. I'm happy with how it how questions are shown, with timers and scores and all that. That is the functionality I'm most happy about. There's alot of things happening at once, but I feel they all contribute to making the game better.
+
+That beeing said, it is not a perfect solution. If I had more time, I would first and foremost improve the socket logic regarding disconnecting and leaving a game etc. There could be improvements here, like doing so that a player can not join a new game for a set time or something like that. The other thing is I would make the question selection better. As it is now, it's just random, which means a question can come up more than once in a game.
+
+There are other things I thought about during the process, like beeing able to create your own questions, and stuff like that, but I did not have time to implement this.
 Also I would focus more on the design and the total impression of the application. The security could also be better, I think. 
 
 I did not run into any major problems while creating this application, other than normal things when creating a project like this. There weren't any show-stoppers. I did make myself learn about topics that I didnt know about, like redux and docker, so I did use some time doing that, but I definitivly think it was worth it. These are things I'm going to use in the future. All in all I am happy with my solution, and I have learned alot in this process. 
