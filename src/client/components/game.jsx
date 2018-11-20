@@ -203,7 +203,7 @@ class Game extends React.Component {
             <div>
                 <h3>Time left to new round: <b>{this.state.timer}</b>s</h3>
             </div>
-        } else {
+        } else if(!this.state.roundOver && !this.state.gameOver) {
             timer =
             <div>
                 <h3>Time left of the round: <b>{this.state.timer}</b>s</h3>
@@ -345,8 +345,8 @@ class Game extends React.Component {
             }
             gameOverLinks = 
             <div>
-            <Link to="/leaderboard"><button className="btn btn-submit">Go to the leaderboard</button></Link>  
-            <Link to="/"><button className="btn btn-submit">Go to the homepage</button></Link>
+            <Link to="/leaderboard"><button className="btn btn-normal">Go to the leaderboard</button></Link>  
+            <Link to="/"><button className="btn btn-normal">Go to the homepage</button></Link>
             </div>
         }
 

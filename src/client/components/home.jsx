@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { gameActions } from "../actions/gameActions";
+import { userActions } from "../actions/userActions";
 
 class Home extends React.Component {
     constructor(props) {
@@ -11,11 +12,16 @@ class Home extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
+    async componentDidMount() {
+        //Check if user is already logged in.
+        const {dispatch} = this.props;
+        await dispatch(userActions.getUser());
+    }
+
     async handleClick() {
         const { dispatch } = this.props;
 
         let game = await dispatch(gameActions.getRandomPlayersGame(this.props.history));
-        console.log(game);
     }
 
     render() {
