@@ -22,8 +22,11 @@ class Home extends React.Component {
         let html = <div></div>;
 
         if(this.props.user === undefined) {
-            html = <div>
-                <p>You have to log in to play</p>
+            html = 
+            <div>
+                <h4>Welcome.</h4>
+                <p>This is a quiz game, here you can play against random players or your friends.</p>
+                <p>However, you have to log in to play</p>
                 <Link to="/login"><button className="btn btn-submit">Login</button></Link>
             </div>
         } else {
@@ -43,7 +46,7 @@ class Home extends React.Component {
                 </p>
                     
                 <Link to="/" onClick={this.handleClick}><button className="btn btn-submit">Start a game</button></Link>
-                <Link to="/gameLobby"><button className="btn btn-submit">Go to the gamelobby</button></Link>
+                <Link to="/gameLobby"><button className="btn btn-normal">Go to the gamelobby</button></Link>
             </div>
                 
         }

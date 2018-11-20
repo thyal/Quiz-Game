@@ -114,6 +114,14 @@ html, body {
     border-radius: 4px;
 }
 
+.btn-normal {
+    background-color: #455A64;
+    color: white;
+    padding: 21px 36px;
+    border: none;
+    border-radius: 4px;
+}
+
 /* Quiz buttons */
 
 .quiz-btn {

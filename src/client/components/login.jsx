@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { userActions } from "../actions/userActions";
 
@@ -73,8 +73,10 @@ class Login extends React.Component {
                 </div>
                 <div>
                     <button className="btn btn-submit" type="submit">Log in</button>
+                    <Link to="/signup"><button className="btn btn-normal">Sign up</button></Link>
                 </div>
             </form>
+            
         </div>
 
         let error = <div></div>;
