@@ -28,7 +28,7 @@ class CreateGame extends React.Component {
         event.preventDefault();
         const {name, numberOfQuestions} = this.state;
         const randomplayers = this.props.randomplayers;
-
+        
         const { dispatch } = this.props;
         if(name && numberOfQuestions) {
             await dispatch(gameActions.createGame(name, numberOfQuestions, randomplayers, this.props.history));

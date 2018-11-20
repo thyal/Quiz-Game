@@ -10,9 +10,10 @@ const start = (server) => {
     io = socketIo(server);
 
     io.on('connection', (socket) => {
-        
+        console.log("connected SOCKET");
         //We expect each socket to send the gameId of the game they want to join when they connect.
         socket.on('game', async (payload) => {
+            console.log("game");
             const checkUser = Tokens.consumeToken(payload.token);
             
             if(checkUser !== payload.user_id) {
@@ -34,6 +35,7 @@ const start = (server) => {
         
         //When the actual game is started. All the game logic is in the gameLogic file. 
         socket.on('startGame', async (gameId) => {
+            console.log("HEI");
             gameLogic.playGame(io, gameId);
         });
 

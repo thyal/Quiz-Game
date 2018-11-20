@@ -10,7 +10,10 @@ function find(id) {
             if(error) {
                 reject(error);
             }
-            resolve(result[0]);
+            if(result.length > 0) {
+                resolve(result[0]);
+            }
+            resolve(false);
         });
     });
 }
@@ -23,7 +26,10 @@ function findOne(username) {
             if(error) {
                 reject(error);
             }
-            resolve(result[0]);
+            if(result.length > 0) {
+                resolve(result[0]);
+            }
+            resolve(false);
         });
     });
 }
@@ -36,6 +42,7 @@ function insertUser(username, password) {
     
             db.query(sql, function(error, result, fields) {
                 if(error) {
+                    console.log(error);
                     reject(error);
                 }
                 resolve(result);

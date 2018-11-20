@@ -21,6 +21,7 @@ router.post('/create', async (req, res) => {
     try {
         created = await Games.createGame(req.user.id, dto.name, dto.numberOfQuestions, randomplayers);  
     } catch(error) {
+        console.log(error);
         return res.status(500);
     }
 

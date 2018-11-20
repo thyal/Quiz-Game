@@ -8,7 +8,11 @@ function find(id) {
             if(error) {
                 reject(error);
             }
-            resolve(result[0]);
+            if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }
         });
     });
 }
@@ -50,7 +54,12 @@ function getActiveGameRandomPlayers() {
             if(error) {
                 reject(error);
             }
-            resolve(result[0]);
+            if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }
+            
         });
     })
 }
@@ -87,7 +96,11 @@ function getSocketIdForUser(user_id, game_id) {
             if(error) {
                 reject(error);
             }
-            resolve(result[0]);
+            if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }       
         });
     });
 }
@@ -143,8 +156,11 @@ function getTotalNumberOfQuestions() {
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
-            }
-            resolve(result[0]);
+            } if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }         
         });
     })
 }
@@ -157,8 +173,11 @@ function getOneQuestion(question_id) {
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
-            }
-            resolve(result[0]);
+            } if(result.length > 0) {
+                resolve(result[0]);
+            } else {
+                resolve(false);
+            }         
         });
     });
 }
@@ -183,8 +202,11 @@ function getNumberOfPlayersInGame(game_id) {
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
+            } 
+            if(result.length > 0) {
+                resolve(result[0]);
             }
-            resolve(result[0]);
+            resolve(false);
         });
     });
 }
@@ -211,8 +233,11 @@ function getUserScore(user_id, game_id) {
         db.query(sql, function(error, result, fields) {
             if(error) {
                 reject(error);
+            } 
+            if(result.length > 0) {
+                resolve(result[0]);
             }
-            resolve(result[0]);
+            resolve(false);
         });
     });
 }

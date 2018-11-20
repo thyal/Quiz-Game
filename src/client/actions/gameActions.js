@@ -3,7 +3,9 @@ import { gameService } from "../services/gameService";
 
 function createGame(name, numberOfQuestions, randomplayers, history) {
     return async (dispatch) => {
-
+        
+        if(randomplayers === undefined) { randomplayers = 0; }
+        
         let response = await gameService.createGame(name, numberOfQuestions, randomplayers);
         let gameId = await response.json();
 

@@ -33,6 +33,7 @@ class Game extends React.Component {
     }
 
     async componentDidMount() {
+        console.log("heeeei");
 
         //First we get users already in the game-room, and open a socket connection
         await this.getUsers();
@@ -47,7 +48,7 @@ class Game extends React.Component {
         };
 
         this.socket.emit('game', payload);
-        
+
         this.socket.on('newUser', (user) => {
 
             this.setState(
@@ -132,7 +133,6 @@ class Game extends React.Component {
     }
 
     handleClick() {
-
         this.socket.emit('startGame', this.props.gameId);
     }
 
