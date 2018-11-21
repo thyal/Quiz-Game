@@ -14,7 +14,7 @@ const app = express();
 //to handle JSON payloads
 app.use(bodyParser.json());
 
-app.use(session({
+app.use(cookie-session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
