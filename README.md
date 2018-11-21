@@ -61,6 +61,8 @@ The leaderboard contains all users in the application, and how many wins they ha
 
 The main functionality is in the game.
 
+I think I have made all requirements stated in the exam description. I did not upload the solution to cloud provider and did not add tests. This was mainly because I did not have time. Other than that I think all requirements are made in this project. 
+
 I have written more about my thoughts, and such in the final-thoughts section.
 
 
