@@ -1,5 +1,5 @@
 build:
   docker:
-    web: ocker build -t quiz-mysql .
+    web: docker build -t quiz-mysql .
 run:
   web: docker run -d -p 3310:3306 --name quiz-mysql -e MYSQL_ROOT_PASSWORD=admin quiz-mysql
