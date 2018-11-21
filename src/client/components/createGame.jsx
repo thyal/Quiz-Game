@@ -79,9 +79,14 @@ class CreateGame extends React.Component {
             </form>
         </div>
 
+        let error = <div></div>;
+        if(this.state.error !== null && this.state.error !== undefined) {
+            error = <div className="msg msg-error"><p>{this.state.error}</p></div>;
+        }
         return(
             <div>
                 {html}
+                {error}
             </div>
         );
     }
