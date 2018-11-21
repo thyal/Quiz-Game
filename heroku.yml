@@ -1,5 +1,0 @@
-build:
-  docker:
-    web: Dockerfile
-run:
-  web: docker run -d -p 3310:3306 --name quiz-mysql -e MYSQL_ROOT_PASSWORD=admin quiz-mysql

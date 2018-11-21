@@ -1,11 +1,11 @@
 const mysql = require('mysql');
 
 let pool = mysql.createPool({
-    host: '127.0.0.1',
-    port: 3310,
-    user: 'root',
-    password: 'admin',
-    database: 'quiz'
+    host: 'fornaermet.mysql.domeneshop.no',
+    port: 3306,
+    user: 'fornaermet',
+    password: 'emmj285Pdg7ZVYS',
+    database: 'fornaermet'
 });
 
 pool.getConnection((err, connection) => {
