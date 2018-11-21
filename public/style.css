@@ -68,6 +68,7 @@ html, body {
 
 .grid {
     display: flex;
+    justify-content: center;
 }
 
 .grid-right {
@@ -174,23 +175,22 @@ html, body {
     box-sizing: border-box;
 }
 
-/* Leaderboard */
+/* Table */
 
-.table-leaderboard {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+.table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.table-leaderboard td, .table-leaderboard th {
+.table td, .table th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-.table-leaderboard th {
+.table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: #607D8B;
     color: white;
 }

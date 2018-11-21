@@ -41,7 +41,7 @@ class Leaderboard extends React.Component {
         } else {
             html = 
             <div>
-                <table className="table-leaderboard">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Username</th>

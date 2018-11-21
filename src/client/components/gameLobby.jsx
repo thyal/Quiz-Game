@@ -58,7 +58,7 @@ class GameLobby extends React.Component {
         } else {
             games = 
             <div>
-                <table className="tbl-active-games">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Game id</th>
@@ -85,11 +85,10 @@ class GameLobby extends React.Component {
         return(
             <div className="grid">
                 <div>
-                    <h3>Game Lobby</h3>
+                    <p>Create a new game.</p>
                     <Link to="/createGame"><button className="btn btn-submit">Create a new game</button></Link>  
-                    {inputGameId}
+                    {inputGameId}   
                 </div>
-       
                 <div>
                     <h3>List of active games</h3>
                     {games}

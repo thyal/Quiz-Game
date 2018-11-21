@@ -171,7 +171,12 @@ class Game extends React.Component {
         let startGame = <div></div>;
 
         if(this.props.userCreatedGame && !this.state.hasStarted) {
-            startGame = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+            console.log(this.state.users.length);
+            if(this.state.users.length <= 1) {
+                startGame = <button className="btn quiz-unclickable">You have to wait for atleast one other player</button>
+            } else {
+                startGame = <button onClick={this.handleClick} className="btn btn-submit">START GAME</button>
+            }    
         } else if(!this.props.userCreatedGame &&!this.state.hasStarted) {
             startGame = <p>Waiting for the game to start.</p>
         }
