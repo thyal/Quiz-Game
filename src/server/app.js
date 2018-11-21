@@ -19,7 +19,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
+const compression = require('compression');
+const app = express();
+app.use(compression());
 //needed to server static files, like HTML, CSS and JS.
 app.use(express.static('public'));
 
