@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require("cookie-session");
+const session = require("express-session");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
@@ -19,9 +19,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-const compression = require('compression');
-app.use(compression());
-//needed to server static files, like HTML, CSS and JS.
+
 app.use(express.static('public'));
 
 passport.use(new LocalStrategy({

@@ -2,7 +2,6 @@
 
 ## List of contents
 
-* [Live URL](#live-url)
 * [How to run](#how-to-run)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -23,9 +22,6 @@
     * [Root Folder](#root-folder)
   * [Database](#database)
 * [Final thoughts](#final-thoughts)
-
-## Live URL
-This project is uploaded to a cloud provider (composed with Docker), and can be seen here;
 
 ## How to run
 
