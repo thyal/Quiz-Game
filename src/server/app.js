@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require("express-session");
+const session = require("cookie-session");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const path = require('path');
@@ -14,7 +14,7 @@ const app = express();
 //to handle JSON payloads
 app.use(bodyParser.json());
 
-app.use(cookie-session({
+app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false
