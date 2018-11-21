@@ -22,7 +22,7 @@
     * [Services](#services)
     * [Root Folder](#root-folder)
   * [Database](#database)
-* [Final thoughts](#final-toughts)
+* [Final thoughts](#final-thoughts)
 
 ## Live URL
 This project is uploaded to a cloud provider (composed with Docker), and can be seen here;
@@ -36,7 +36,7 @@ has installed nodejs, npm and docker. This is all that is needed to run this pro
 ### Installation
 The first thing you need to do is run the NPM command `npm install`.
 This will install all dependencies.
-The project are running a database with docker. So it is needed to build and run the docker image before the solution is ran. This can be done with two npm commands.
+The project is running a database with docker. So it is needed to build and run the docker image before the solution is ran. This can be done with two npm commands.
 
 The next thing is to run the NPM command `npm run docker-build`.
 **It is very important that you wait for it to finish.**
@@ -53,7 +53,9 @@ This is the button at the front-page that says "start a game". How this works is
 
 The other mode is the gamelobby. Here you can start a game, you can see a list of active games waiting for players, and you can enter a game id for a specific game you want to join. This is good if you want to start a game and play against friends. You can share the game id, and they can join the same game. This mode is loosely inspired by Kahoot.
 
-The actual game works  and players will get questions and answers, they get 20 seconds to answer, and the get scored on wheter they have the right one answer, and how long time they use to answer. The game is over when the question-limit choosed are reached. A winner will then be announced and the leaderboard will be updated.
+The actual game works like this; A question will appear on the screen, and the players will get a few answers to choose from. They get 20 seconds to answer, and the get scored on wheter they have the right one answer, and how long time they use to answer. There is a time-counter, so you always see how long each round has left, and how long it will be before the next round starts. You will also see the players that are connected to the game, you will see you score, both total score of the game, and after each round. You will also always see what place you are in. This makes the game very interactive, and alive. The game is over when the question-limit choosed are reached. A winner will then be announced and the leaderboard will be updated.
+
+I have written more about my thoughts, and such in the final-thoughts section.
 
 
 ## Technologies used

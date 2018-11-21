@@ -50,7 +50,17 @@ class Home extends React.Component {
                     with your friends and play together. You will also see a list with active games
                     that you could join. 
                 </p>
-                    
+                <h3>GAME RULES</h3>
+                <p>
+                    The number of questions are decided by the creator of each game. Each round
+                    lasts 20 seconds, and you get scored on how fast you answer. 10 points for 
+                    right answer, and additional 1 point for each second that is left of the round.
+                    <b>It is smart to be fast! </b>
+                    <p>You will always be able to see how you are doing, and how many points you
+                        have. The leaderboard will be updated after each game.
+                        <b>Try to get to the top!</b>
+                    </p>
+                </p>
                 <Link to="/" onClick={this.handleClick}><button className="btn btn-submit">Start a game</button></Link>
                 <Link to="/gameLobby"><button className="btn btn-normal">Go to the gamelobby</button></Link>
             </div>
